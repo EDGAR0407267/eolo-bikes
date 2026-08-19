@@ -1,0 +1,212 @@
+---
+import '../styles/global.css';
+import {
+  AREA_SERVED,
+  INSTAGRAM_URL,
+  LOGO_PATH,
+  MAIN_ROUTES,
+  OG_IMAGE_PATH,
+  OPENING_HOURS_SPECIFICATION,
+  PHONE_NUMBER_E164,
+  SITE_NAME,
+  SITE_URL,
+} from '@/lib/constants';
+
+interface Props {
+  title: string;
+  description: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  canonical?: string;
+  schema?: object | object[];
+}
+
+const {
+  title,
+  description,
+  ogTitle,
+  ogDescription,
+  canonical,
+  schema,
+} = Astro.props;
+
+const normalizePathname = (pathname: string) => {
+  if (pathname === '/') return '/';
+  return `${pathname.replace(/\/$/, '')}/`;
+};
+
+const toAbsoluteUrl = (pathOrUrl: string) => {
+  if (pathOrUrl.startsWith('http')) return pathOrUrl;
+  return `${SITE_URL}${pathOrUrl}`;
+};
+
+const normalizedPathname = normalizePathname(Astro.url.pathname);
+const canonicalUrl = canonical ?? `${SITE_URL}${normalizedPathname}`;
+const socialImageUrl = toAbsoluteUrl(OG_IMAGE_PATH);
+const logoUrl = toAbsoluteUrl(LOGO_PATH);
+const currentRoute = MAIN_ROUTES.find((route) => route.href === normalizedPathname);
+
+const stripSchemaContext = (item: object) => {
+  const { '@context': _context, ...schemaItem } = item as Record<string, unknown>;
+  return schemaItem;
+};
+
+const pageSchemaItems = schema
+  ? (Array.isArray(schema) ? schema : [schema]).map(stripSchemaContext)
+  : [];
+
+const localBusinessSchema = {
+  '@type': 'SportingGoodsStore',
+  '@id': `${SITE_URL}/#local-business`,
+  name: SITE_NAME,
+  description:
+    'Venta, taller y alquiler de bicicletas en Miami Platja. Tu punto ciclista en la Costa Daurada.',
+  url: SITE_URL,
+  logo: logoUrl,
+  telephone: PHONE_NUMBER_E164,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Av. Barcelona 111',
+    addressLocality: 'Miami Platja',
+    addressRegion: 'Tarragona',
+    postalCode: '43892',
+    addressCountry: 'ES',
+  },
+  openingHoursSpecification: OPENING_HOURS_SPECIFICATION,
+  sameAs: [INSTAGRAM_URL],
+  image: socialImageUrl,
+  priceRange: 'EUR',
+  areaServed: AREA_SERVED.map((name) => ({
+    '@type': 'Place',
+    name,
+  })),
+  makesOffer: [
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Venta de bicicletas' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Taller de bicicletas' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Alquiler de bicicletas' } },
+  ],
+};
+
+const websiteSchema = {
+  '@type': 'WebSite',
+  '@id': `${SITE_URL}/#website`,
+  name: SITE_NAME,
+  url: SITE_URL,
+  inLanguage: 'es',
+  publisher: {
+    '@id': `${SITE_URL}/#local-business`,
+  },
+};
+
+const breadcrumbSchema = currentRoute && normalizedPathname !== '/'
+  ? {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonicalUrl}#breadcrumb`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Inicio',
+          item: SITE_URL,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: currentRoute.label,
+          item: canonicalUrl,
+        },
+      ],
+    }
+  : null;
+
+const schemaGraph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    localBusinessSchema,
+    websiteSchema,
+    ...(breadcrumbSchema ? [breadcrumbSchema] : []),
+    ...pageSchemaItems,
+  ],
+};
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#05070A" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow" />
+    <script is:inline>
+      document.documentElement.classList.add('js-motion');
+    </script>
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={ogTitle ?? title} />
+    <meta property="og:description" content={ogDescription ?? description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle ?? title} />
+    <meta name="twitter:description" content={ogDescription ?? description} />
+    <meta name="twitter:image" content={socialImageUrl} />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!--
+      Fonts. Loaded non-render-blocking via preload + media="print" swap so the
+      CSS request never delays first paint. Barlow Condensed and the Playfair
+      italics were dropped: nothing in the site uses them (all `font-display`
+      maps to Playfair roman, every accent is `not-italic`), so they were six
+      blocking font files downloaded for nothing.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap"
+      />
+    </noscript>
+
+    <!-- Schema.org: local business, website, breadcrumbs and page-specific data -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
+  </head>
+  <body>
+    <!-- BUILD_VERIFICADA_EOLO_20260605_2221 -->
+    <slot />
+
+    <!-- Lightweight reveal and parallax effects -->
+    <script>
+      import '../scripts/animations';
+    </script>
+  </body>
+</html>

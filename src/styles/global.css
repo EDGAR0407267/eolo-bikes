@@ -1,0 +1,375 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.font-accent {
+  font-family: "Playfair Display", Georgia, serif;
+}
+
+.hero-accent-mark {
+  display: inline-block;
+  font-weight: 700;
+}
+
+.subpage-hero-word {
+  justify-content: center;
+}
+
+:root {
+  --background: #05070a;
+  --foreground: #f5f0e6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 76% 4%, rgba(127, 214, 255, 0.12), transparent 28rem),
+    radial-gradient(circle at 6% 18%, rgba(142, 150, 112, 0.12), transparent 24rem),
+    var(--background);
+  color: var(--foreground);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  text-rendering: geometricPrecision;
+  overflow-x: hidden;
+}
+
+/*
+ * Film-grain overlay. Kept as a plain low-opacity layer (no mix-blend-mode):
+ * a fixed full-viewport blend mode forces the compositor to re-blend the whole
+ * screen on every scroll frame, which was a major source of scroll jank.
+ * A static normal-composited grain reads almost identically over the dark base
+ * but stays on a cached compositor layer, so scrolling stays smooth.
+ */
+body::before {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  content: '';
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: rgba(127, 214, 255, 0.34);
+  color: #ffffff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+  outline: 2px solid rgba(127, 214, 255, 0.86);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 6px rgba(127, 214, 255, 0.16);
+}
+
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Layout utility */
+.section-shell {
+  position: relative;
+  margin-inline: auto;
+  width: min(100% - 2.5rem, 1180px);
+}
+
+/* Glass card surface */
+.glass-surface {
+  border: 1px solid rgba(245, 240, 230, 0.12);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.045));
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(14px);
+}
+
+/* Ambient wind lines */
+.wind-line {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(127, 214, 255, 0.42), transparent);
+}
+
+/* Lightweight reveal states. Content stays visible when JS is unavailable. */
+.js-motion [data-reveal],
+.js-motion [data-section-title],
+.js-motion [data-hero-title],
+.js-motion [data-hero-subtitle],
+.js-motion [data-hero-buttons],
+.js-motion [data-hero-quote],
+.js-motion [data-hero-image],
+.js-motion [data-hero-reveal],
+.js-motion [data-stagger-item] {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-y, 32px), 0);
+  transition:
+    opacity 720ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+    transform 820ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+  /*
+   * will-change is intentionally NOT set here. Applying it to every reveal
+   * target up front would promote dozens of compositor layers before anything
+   * animates. translate3d already hints compositing for the one-shot reveal,
+   * and the parallax script toggles will-change per element only while active.
+   */
+}
+
+.js-motion [data-section-title] {
+  --reveal-y: 30px;
+}
+
+.js-motion [data-hero-title] {
+  --reveal-y: 46px;
+}
+
+.js-motion .is-visible,
+.js-motion [data-reveal].is-visible,
+.js-motion [data-section-title].is-visible,
+.js-motion [data-hero-title].is-visible,
+.js-motion [data-hero-subtitle].is-visible,
+.js-motion [data-hero-buttons].is-visible,
+.js-motion [data-hero-quote].is-visible,
+.js-motion [data-hero-image].is-visible,
+.js-motion [data-hero-reveal].is-visible,
+.js-motion [data-stagger-item].is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.js-motion .motion-complete {
+  will-change: auto;
+}
+
+@media (max-width: 767px) {
+  .section-shell {
+    width: min(100% - 1.5rem, 1180px);
+  }
+
+  body::before {
+    opacity: 0.04;
+  }
+
+  .glass-surface {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.055));
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(6px);
+  }
+
+  .backdrop-blur,
+  .backdrop-blur-sm,
+  .backdrop-blur-md,
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl {
+    backdrop-filter: blur(8px) !important;
+  }
+
+  .shadow-lift {
+    box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28) !important;
+  }
+
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .hero-root {
+    height: auto !important;
+    min-height: clamp(640px, 92svh, 760px) !important;
+  }
+
+  .hero-root .hero-content {
+    justify-content: flex-end !important;
+    padding-inline: 1rem !important;
+    padding-top: 6.5rem !important;
+    padding-bottom: 7rem !important;
+  }
+
+  .hero-bg img {
+    object-position: 58% center !important;
+    transform: scale(1.04) !important;
+  }
+
+  .hero-word {
+    align-items: flex-start !important;
+    padding-top: clamp(9rem, 22svh, 11.25rem);
+  }
+
+  .hero-word span {
+    font-size: clamp(7rem, 34vw, 9.5rem) !important;
+    -webkit-text-stroke-width: 1px !important;
+  }
+
+  #hero-badge {
+    margin-bottom: 1.1rem !important;
+    padding-inline: 0.85rem !important;
+  }
+
+  #hero-title {
+    max-width: min(100%, 11ch) !important;
+    font-size: clamp(2.25rem, 11.2vw, 3.15rem) !important;
+    line-height: 0.9 !important;
+  }
+
+  #hero-subtitle {
+    max-width: 31rem !important;
+    margin-top: 1.15rem !important;
+    font-size: clamp(0.92rem, 3.65vw, 1rem) !important;
+    line-height: 1.65 !important;
+  }
+
+  #hero-buttons,
+  main > section:first-child [data-hero-buttons] {
+    position: relative;
+    z-index: 2;
+    margin-top: 1.5rem !important;
+    gap: 0.75rem !important;
+  }
+
+  #hero-buttons > div,
+  main > section:first-child [data-hero-buttons] {
+    gap: 0.75rem !important;
+  }
+
+  #hero-buttons a,
+  main > section:first-child [data-hero-buttons] a {
+    width: 100%;
+    min-height: 54px !important;
+    padding-inline: 1.15rem !important;
+  }
+
+  #hero-location {
+    max-width: 100%;
+    margin-top: 0.1rem;
+    align-items: flex-start;
+  }
+
+  #hero-location span {
+    font-size: 0.62rem;
+    line-height: 1.45;
+    letter-spacing: 0.16em;
+  }
+
+  #hero-scroll {
+    display: none !important;
+  }
+
+  main > section:first-child > div[class*="z-10"][style*="min-height: 84vh"] {
+    min-height: clamp(620px, 84svh, 720px) !important;
+    padding-top: 6.6rem !important;
+    padding-bottom: 6.5rem !important;
+  }
+
+  main > section:first-child [data-hero-title] {
+    max-width: min(100%, 15.5ch) !important;
+    font-size: clamp(2.15rem, 9.4vw, 3.7rem) !important;
+    line-height: 0.9 !important;
+  }
+
+  main > section:first-child [data-hero-subtitle] {
+    max-width: 34rem !important;
+    margin-top: 1.1rem !important;
+    font-size: clamp(0.94rem, 3.4vw, 1.05rem) !important;
+    line-height: 1.65 !important;
+  }
+
+  main > section:first-child [data-reveal][data-reveal-delay="1.1"] {
+    margin-top: 1.25rem !important;
+  }
+
+  main > section:first-child .subpage-hero-word span {
+    font-size: clamp(6.6rem, 34vw, 10.5rem) !important;
+    -webkit-text-stroke-width: 1px !important;
+  }
+
+  main > section:first-child > div[aria-hidden="true"] img {
+    object-position: 58% center !important;
+  }
+
+  main > section:first-child p,
+  .section-shell p {
+    text-wrap: pretty;
+  }
+
+  .mobile-menu {
+    width: min(100% - 1rem, 1180px) !important;
+    border-radius: 1.35rem !important;
+    background: rgba(5, 7, 10, 0.94) !important;
+  }
+
+  .mobile-menu > div {
+    gap: 0.35rem !important;
+    padding: 0.75rem !important;
+  }
+
+  .mobile-menu a {
+    display: flex;
+    min-height: 46px;
+    align-items: center;
+    border-radius: 1rem !important;
+    padding: 0.85rem 1rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-root {
+    min-height: clamp(620px, 90svh, 740px) !important;
+  }
+
+  .hero-root .hero-content {
+    padding-bottom: 6.4rem !important;
+  }
+
+  #hero-title {
+    font-size: clamp(2.05rem, 10.8vw, 2.5rem) !important;
+  }
+
+  main > section:first-child [data-hero-title] {
+    font-size: clamp(2rem, 9vw, 2.45rem) !important;
+  }
+
+  #hero-buttons a,
+  main > section:first-child [data-hero-buttons] a {
+    min-height: 52px !important;
+    font-size: 0.86rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-motion [data-reveal],
+  .js-motion [data-section-title],
+  .js-motion [data-hero-title],
+  .js-motion [data-hero-subtitle],
+  .js-motion [data-hero-buttons],
+  .js-motion [data-hero-quote],
+  .js-motion [data-hero-image],
+  .js-motion [data-hero-reveal],
+  .js-motion [data-stagger-item] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

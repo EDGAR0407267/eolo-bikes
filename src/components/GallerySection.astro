@@ -1,0 +1,236 @@
+---
+import { Image } from 'astro:assets';
+import { INSTAGRAM_URL } from '@/lib/constants';
+
+import bike1 from '@/assets/images/gallery-bike-1.jpg';
+import bike3 from '@/assets/images/gallery-bike-3.jpg';
+import bike6 from '@/assets/images/gallery-bike-6.png';
+import bike7 from '@/assets/images/gallery-bike-7.png';
+import bike8 from '@/assets/images/gallery-bike-8.png';
+import bike9 from '@/assets/images/gallery-bike-9.png';
+import bike10 from '@/assets/images/gallery-bike-10.png';
+import bike11 from '@/assets/images/gallery-bike-11.jpg';
+import bike13 from '@/assets/images/gallery-bike-13.jpg';
+import bike15 from '@/assets/images/gallery-bike-15.jpg';
+import bike16 from '@/assets/images/gallery-bike-16.jpg';
+
+/*
+ * Images are served via astro:assets (local WebP pipeline) instead of remote
+ * Unsplash URLs. The "crop" variants use the same source file with a different
+ * CSS object-position so we don't need multiple downloads of the same photo.
+ */
+const row1 = [
+  { img: bike1,  pos: 'center', quote: 'Cada ruta es una historia.' },
+  { img: bike15, pos: 'center', quote: 'La ruta nos une.' },
+  { img: bike6,  pos: 'center', quote: 'La montaña te llama de noche.' },
+  { img: bike3,  pos: 'center', quote: 'Velocidad con propósito.' },
+  { img: bike8,  pos: 'center', quote: 'Gravel sin fronteras.' },
+  { img: bike11, pos: 'center', quote: 'El camino te llama.' },
+  { img: bike9,  pos: 'top',    quote: 'Equipo. Pasión. EOLO.' },
+  { img: bike16, pos: 'center', quote: 'La Costa Daurada te espera.' },
+];
+
+const row2 = [
+  { img: bike11, pos: 'center', quote: 'Sin límites en la carretera.' },
+  { img: bike7,  pos: 'center', quote: 'La costa bajo la luna.' },
+  { img: bike3,  pos: 'left',   quote: 'Miami Platja en dos ruedas.' },
+  { img: bike10, pos: 'center', quote: 'Rutas nocturnas, paisajes eternos.' },
+  { img: bike13, pos: 'center', quote: 'Tecnología que se pedalea.' },
+  { img: bike1,  pos: 'top',    quote: 'Rueda. Descubre. Vuelve.' },
+];
+---
+
+<section class="relative overflow-hidden py-12 sm:py-20 lg:py-28 pb-16 sm:pb-24 lg:pb-32">
+
+  <!-- Section header -->
+  <div class="section-shell mb-10 flex items-end justify-between sm:mb-14">
+    <div data-reveal>
+      <p class="mb-3 text-[11px] tracking-[0.3em] uppercase text-wind">Comunidad ciclista</p>
+      <h2 class="text-3xl font-semibold leading-tight text-cream sm:text-4xl">
+        Síguenos en Instagram
+      </h2>
+    </div>
+    <a
+      href={INSTAGRAM_URL}
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Ver Instagram de EOLO Bikes"
+      class="hidden shrink-0 items-center gap-2 rounded-full border border-cream/18 bg-cream/6 px-5 py-2.5 text-sm font-semibold text-cream backdrop-blur transition-all duration-300 hover:border-cream/36 hover:bg-cream/12 sm:inline-flex"
+      data-reveal
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+      </svg>
+      @eolobikes
+    </a>
+  </div>
+
+  <!-- ── Marquee row 1 — scrolls left ────────────────────────────────────── -->
+  <div class="marquee-wrapper overflow-hidden" style="mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);">
+    <div class="marquee-track-left flex gap-4" style="width: max-content;">
+      {[...row1, ...row1].map((item, i) => (
+        <div
+          class="gallery-card group relative shrink-0 overflow-hidden rounded-[1.4rem]"
+          style="width: 280px; height: 340px;"
+        >
+          <Image
+            src={item.img}
+            alt={item.quote}
+            width={560}
+            height={680}
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+            quality={78}
+            class="h-full w-full object-cover grayscale transition-transform duration-700 group-hover:scale-105"
+            style={`object-position: ${item.pos};`}
+          />
+          <!-- Overlay gradient -->
+          <div
+            class="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80"
+            style="background: linear-gradient(to top, rgba(5,7,10,0.90) 0%, rgba(5,7,10,0.30) 55%, transparent 100%);"
+            aria-hidden="true"
+          ></div>
+          <!-- Quote -->
+          <div class="absolute inset-x-0 bottom-0 p-5">
+            <p class="text-sm font-semibold leading-snug text-cream">
+              {item.quote}
+            </p>
+            <span class="mt-2 block text-[10px] tracking-widest uppercase" style="color: rgba(127,214,255,0.65);">EOLO Bikes</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- ── Marquee row 2 — scrolls right ───────────────────────────────────── -->
+  <div class="marquee-wrapper mt-4 overflow-hidden" style="mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);">
+    <div class="marquee-track-right flex gap-4" style="width: max-content;">
+      {[...row2, ...row2].map((item) => (
+        <div
+          class="gallery-card group relative shrink-0 overflow-hidden rounded-[1.4rem]"
+          style="width: 280px; height: 340px;"
+        >
+          <Image
+            src={item.img}
+            alt={item.quote}
+            width={560}
+            height={680}
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+            quality={78}
+            class="h-full w-full object-cover grayscale transition-transform duration-700 group-hover:scale-105"
+            style={`object-position: ${item.pos};`}
+          />
+          <div
+            class="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80"
+            style="background: linear-gradient(to top, rgba(5,7,10,0.90) 0%, rgba(5,7,10,0.30) 55%, transparent 100%);"
+            aria-hidden="true"
+          ></div>
+          <div class="absolute inset-x-0 bottom-0 p-5">
+            <p class="text-sm font-semibold leading-snug text-cream">
+              {item.quote}
+            </p>
+            <span class="mt-2 block text-[10px] tracking-widest uppercase" style="color: rgba(127,214,255,0.65);">EOLO Bikes</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Subtle depth wave: Gallery → Reviews -->
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10 leading-[0]" aria-hidden="true">
+    <svg viewBox="0 0 1440 36" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(18px, 3vw, 36px);">
+      <path d="M0,18 C360,36 720,0 1080,20 C1260,30 1380,10 1440,14 L1440,36 L0,36 Z" fill="rgba(8,19,29,0.55)"/>
+    </svg>
+  </div>
+
+  <!-- Bottom CTA for mobile -->
+  <div class="section-shell mt-10 flex justify-center sm:hidden">
+    <a
+      href={INSTAGRAM_URL}
+      target="_blank"
+      rel="noreferrer"
+      class="inline-flex items-center gap-2 rounded-full border border-cream/18 bg-cream/6 px-6 py-3 text-sm font-semibold text-cream"
+    >
+      Ver Instagram →
+    </a>
+  </div>
+
+</section>
+
+<style>
+  @keyframes marquee-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes marquee-right {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+
+  .marquee-track-left {
+    animation: marquee-left 42s linear infinite;
+  }
+  .marquee-track-right {
+    animation: marquee-right 38s linear infinite;
+  }
+
+  /* Pause on hover, and whenever the section is off-screen / tab hidden */
+  .marquee-wrapper:hover .marquee-track-left,
+  .marquee-wrapper:hover .marquee-track-right,
+  .marquee-track-left.is-paused,
+  .marquee-track-right.is-paused {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track-left,
+    .marquee-track-right {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // Pause both Instagram marquees while the section is out of view or the tab
+  // is hidden, so the two infinite transform animations stop consuming frames
+  // when they cannot be seen.
+  function initGalleryMarquees() {
+    const tracks = Array.from(
+      document.querySelectorAll<HTMLElement>('.marquee-track-left, .marquee-track-right'),
+    );
+    if (!tracks.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const section = tracks[0].closest('section');
+    if (!section) return;
+    if (section.dataset.galleryMarqueesBound === 'true') return;
+    section.dataset.galleryMarqueesBound = 'true';
+
+    const canObserve = 'IntersectionObserver' in window;
+    let onScreen = !canObserve;
+    const sync = () => {
+      const paused = !onScreen || document.hidden;
+      tracks.forEach((track) => track.classList.toggle('is-paused', paused));
+    };
+
+    sync();
+
+    if (canObserve) {
+      new IntersectionObserver(
+        (entries) => {
+          onScreen = entries[0].isIntersecting;
+          sync();
+        },
+        { rootMargin: '200px 0px' },
+      ).observe(section);
+    }
+
+    document.addEventListener('visibilitychange', sync);
+  }
+
+  initGalleryMarquees();
+  document.addEventListener('astro:after-swap', initGalleryMarquees);
+</script>

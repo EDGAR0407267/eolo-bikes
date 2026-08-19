@@ -1,0 +1,468 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import CTASection from '@/components/CTASection.astro';
+import ContactSection from '@/components/ContactSection.astro';
+import Footer from '@/components/Footer.astro';
+import WhatsAppButton from '@/components/WhatsAppButton.astro';
+import { AREA_SERVED, INSTAGRAM_URL, SITE_URL, WHATSAPP_URL } from '@/lib/constants';
+import { Image } from 'astro:assets';
+import salesHeroImage from '@/assets/images/venta-hero-rider.png';
+import heroImage from '@/assets/images/eolo-concept.jpg';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Venta de bicicletas en Miami Platja',
+  description:
+    'Venta de bicicletas de montaña, carretera, urbanas y eléctricas en Miami Platja. Asesoramiento personalizado en EOLO Bikes.',
+  url: `${SITE_URL}/venta-bicicletas-miami-platja/`,
+  provider: {
+    '@type': 'SportingGoodsStore',
+    '@id': `${SITE_URL}/#local-business`,
+    name: 'EOLO Bikes',
+  },
+  areaServed: AREA_SERVED.map((name) => ({ '@type': 'Place', name })),
+  serviceType: 'Venta de bicicletas',
+};
+
+const categories = [
+  {
+    title: 'Carretera',
+    desc: 'Ligeras, eficientes, para recorrer kilómetros por las carreteras costeras a buen ritmo.',
+    tag: 'Road',
+    svg: `<path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>`,
+    accent: { border: 'rgba(127,214,255,0.25)', bg: 'rgba(127,214,255,0.07)', text: '#7FD6FF', glow: 'rgba(127,214,255,0.12)' },
+  },
+  {
+    title: 'Gravel / MTB',
+    desc: 'Para los caminos sin asfaltar, las rutas de interior y los senderos de la Costa Daurada.',
+    tag: 'Off-road',
+    svg: `<path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><path d="M12 8v4l2 2"/>`,
+    accent: { border: 'rgba(142,150,112,0.25)', bg: 'rgba(142,150,112,0.07)', text: '#8E9670', glow: 'rgba(142,150,112,0.12)' },
+  },
+  {
+    title: 'Urbana',
+    desc: 'Cómodas, prácticas y pensadas para el día a día y los desplazamientos cortos.',
+    tag: 'Urban',
+    svg: `<circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/>`,
+    accent: { border: 'rgba(212,180,111,0.25)', bg: 'rgba(212,180,111,0.07)', text: '#D4B46F', glow: 'rgba(212,180,111,0.12)' },
+  },
+  {
+    title: 'Eléctrica',
+    desc: 'Rutas más largas sin esfuerzo extra. La misma experiencia, con más kilómetros posibles.',
+    tag: 'E-bike',
+    svg: `<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>`,
+    accent: { border: 'rgba(0,201,177,0.25)', bg: 'rgba(0,201,177,0.07)', text: '#00C9B1', glow: 'rgba(0,201,177,0.12)' },
+  },
+];
+
+const reasons = [
+  { title: 'Asesoramiento de verdad', desc: 'No vendemos por vender. Conocemos cada modelo al detalle y te guiamos hacia lo que tiene sentido para ti.' },
+  { title: 'Sin catálogo infinito', desc: 'No tienes que elegir entre cien modelos. Te ayudamos a filtrar lo que tiene sentido para ti.' },
+  { title: 'Segunda mano revisada', desc: 'Vendemos bicis de segunda mano con revisión completa de taller incluida. Con garantía.' },
+  { title: 'Prueba antes de decidir', desc: 'Ven a la tienda, cógela en mano y pregunta todo lo que necesites. Sin presión.' },
+];
+---
+
+<Layout
+  title="Venta de bicicletas en Miami Platja | EOLO Bikes"
+  description="Compra bicicletas, accesorios y equipamiento ciclista en EOLO Bikes Miami Platja. Asesoramiento profesional para carretera, gravel, MTB y ciclismo urbano."
+  ogTitle="Venta de bicicletas Miami Platja — EOLO Bikes"
+  ogDescription="Compra bicicletas y equipamiento ciclista en Miami Platja con asesoramiento profesional para carretera, gravel, MTB y ciclismo urbano."
+  schema={serviceSchema}
+>
+  <Header />
+
+  <main class="sale-page">
+
+    <!-- ══════════════════════════════════════════
+         1. HERO — Imagen + editorial
+    ══════════════════════════════════════════ -->
+    <section class="relative isolate overflow-hidden" style="min-height: 84vh;">
+
+      <!-- Background: hero image with warm overlay -->
+      <div class="absolute -inset-4 z-0 overflow-hidden" aria-hidden="true">
+        <Image
+          src={salesHeroImage}
+          alt=""
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          draggable="false"
+          widths={[640, 960, 1280, 1536]}
+          sizes="100vw"
+          class="h-full w-full object-cover pointer-events-none select-none"
+          style="object-position: 66% center; transform: scale(1.04); transform-origin: center 46%;"
+        />
+        <!-- Cinematic overlay: warm left -->
+        <div
+          class="absolute inset-0"
+          style="background: linear-gradient(112deg, rgba(5,7,10,0.95) 0%, rgba(11,17,24,0.82) 32%, rgba(11,17,24,0.48) 64%, rgba(5,7,10,0.68) 100%);"
+        ></div>
+        <!-- Bottom dark pool -->
+        <div
+          class="absolute inset-x-0 bottom-0 h-52"
+          style="background: linear-gradient(to top, #05070A 0%, transparent 100%);"
+        ></div>
+      </div>
+
+      <!-- Ambient orbs -->
+      <div class="pointer-events-none absolute inset-0 z-[2]" aria-hidden="true">
+        <div class="absolute rounded-full" style="width: 500px; height: 500px; top: -120px; right: -60px; background: radial-gradient(circle, rgba(212,180,111,0.10) 0%, transparent 70%); filter: blur(1px);"></div>
+        <div class="absolute rounded-full" style="width: 380px; height: 380px; bottom: 60px; left: -80px; background: radial-gradient(circle, rgba(142,150,112,0.08) 0%, transparent 70%); filter: blur(1px);"></div>
+      </div>
+
+      <!-- Editorial word: GEAR -->
+      <div class="subpage-hero-word pointer-events-none absolute inset-0 z-[3] flex items-center overflow-hidden" aria-hidden="true">
+        <span
+          data-reveal
+          data-reveal-delay="0.08"
+          data-reveal-y="0"
+          class="select-none font-display font-black uppercase leading-none"
+          style="font-size: clamp(16vw, 22vw, 310px); color: transparent; -webkit-text-stroke: 1px rgba(212,180,111,0.11); letter-spacing: -0.04em;"
+        >GEAR</span>
+      </div>
+
+      <!-- Content -->
+      <div
+        class="relative z-10 mx-auto flex flex-col justify-center px-5 pt-28 pb-28 sm:px-8 sm:pt-36 sm:pb-32 lg:pt-44 lg:pb-36"
+        style="max-width: 1200px; min-height: 84vh;"
+      >
+        <!-- Badge -->
+        <div
+          data-reveal
+          data-reveal-delay="0.25"
+          data-reveal-y="16"
+          class="mb-6 inline-flex w-fit items-center gap-2 rounded-full border px-4 py-1.5"
+          style="border-color: rgba(142,150,112,0.30); background: rgba(142,150,112,0.09); backdrop-filter: blur(12px);"
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8E9670" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+          <span class="text-xs font-semibold uppercase tracking-widest text-olive">Punto ciclista · Miami Platja</span>
+        </div>
+
+        <!-- Headline -->
+        <h1
+          data-hero-title
+          class="font-display font-black uppercase leading-[0.88] tracking-tight text-cream"
+          style="font-size: clamp(1.9rem, 5.2vw, 5.0rem); max-width: 13ch;"
+        >
+          La bicicleta<br />{' '}correcta<br />{' '}
+          <span
+            class="hero-accent-mark font-accent"
+            style="color: transparent; -webkit-text-stroke: 1.2px #8E9670; background: linear-gradient(90deg, #8E9670, #b5bc96); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
+          >cambia<br />{' '}cómo ruedas.</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p
+          data-hero-subtitle
+          class="mt-6 max-w-lg leading-relaxed sm:mt-7"
+          style="color: rgba(201,208,214,0.72); font-size: clamp(0.9rem, 1.45vw, 1.1rem);"
+        >
+          Menos catálogo infinito. Más asesoramiento real.<br class="hidden sm:block"/>
+          Encontramos la bici que encaja contigo, no la que conviene vender.
+        </p>
+
+        <!-- CTAs -->
+        <div
+          data-hero-buttons
+          class="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4"
+        >
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Pedir asesoramiento por WhatsApp"
+            class="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full px-8 text-sm font-bold text-carbon transition-all duration-300 hover:-translate-y-0.5"
+            style="background: linear-gradient(90deg, #8E9670, #b5bc96); box-shadow: 0 0 32px rgba(142,150,112,0.28);"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>
+            </svg>
+            Pedir asesoramiento
+          </a>
+          <a
+            href="#categorias"
+            class="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full border px-8 text-sm font-semibold text-cream backdrop-blur-sm transition-all duration-300 hover:border-cream/40 hover:bg-cream/10"
+            style="border-color: rgba(245,240,230,0.2); background: rgba(245,240,230,0.05);"
+          >
+            Ver categorías
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Wave: Hero → Manifesto Quote -->
+      <div class="absolute inset-x-0 bottom-0 z-20 leading-[0]" aria-hidden="true">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(44px, 5.5vw, 72px);">
+          <path d="M0,72 L1440,8 L1440,72 Z" fill="rgba(142,150,112,0.05)"/>
+          <path d="M0,72 L1440,16 L1440,72 Z" fill="#05070A"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         2. MANIFESTO QUOTE
+    ══════════════════════════════════════════ -->
+    <section class="relative overflow-hidden py-14 sm:py-20 lg:py-28 pb-20 sm:pb-28 lg:pb-36">
+      <!-- Wind line -->
+      <div class="wind-line left-0 top-1/2 w-[62vw] animate-line-drift" aria-hidden="true"></div>
+
+      <div class="section-shell">
+        <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:gap-16">
+
+          <div data-reveal>
+            <p
+              class="font-display font-black uppercase leading-[0.88] text-cream"
+              style="font-size: clamp(2rem, 4.5vw, 4.2rem); letter-spacing: -0.02em;"
+            >
+              No vendemos<br />{' '}
+              <span style="color: transparent; -webkit-text-stroke: 1.5px rgba(142,150,112,0.7); background: linear-gradient(90deg, #8E9670, #c4c8a8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">bicis.</span><br />{' '}
+              Encontramos<br />{' '}la tuya.
+            </p>
+            <div class="mt-6 h-px w-16 bg-gradient-to-r from-olive/50 to-transparent" aria-hidden="true"></div>
+            <p class="mt-6 text-base leading-8 text-mist/65" style="max-width: 42ch;">
+              Antes de recomendar nada, te escuchamos. Cuánto y dónde vas a usarla, qué nivel tienes, qué presupuesto manejas. Después te decimos qué tiene sentido para ti.
+            </p>
+          </div>
+
+          <div data-stagger class="grid gap-3">
+            {[
+              { label: 'Escuchamos primero', icon: `<path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>` },
+              { label: 'Sin presión de venta', icon: `<path d="M20 6 9 17l-5-5"/>` },
+              { label: 'Bicicleta o ninguna', icon: `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>` },
+            ].map(item => (
+              <div
+                data-stagger-item
+                class="flex items-center gap-4 rounded-2xl border border-cream/[0.07] bg-cream/[0.04] px-5 py-4 transition-all duration-300 hover:border-olive/28 hover:bg-olive/8"
+              >
+                <span class="grid size-9 shrink-0 place-items-center rounded-full bg-olive/10 text-olive border border-olive/20">
+                  <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={item.icon}/>
+                </span>
+                <span class="text-sm font-semibold text-cream">{item.label}</span>
+              </div>
+            ))}
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noreferrer"
+              data-stagger-item
+              class="mt-2 inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full border border-olive/30 bg-olive/10 px-6 text-sm font-semibold text-cream transition-all duration-300 hover:-translate-y-0.5 hover:border-olive/55 hover:bg-olive/18"
+            >
+              Hablar con nosotros
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wave: Manifesto → Categories -->
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10 leading-[0]" aria-hidden="true">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(36px, 4.5vw, 60px);">
+          <path d="M0,0 C360,60 720,0 1080,48 C1260,66 1380,24 1440,36 L1440,60 L0,60 Z" fill="rgba(142,150,112,0.04)"/>
+          <path d="M0,0 L1440,60 L0,60 Z" fill="#071018"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         3. CATEGORÍAS
+    ══════════════════════════════════════════ -->
+    <section id="categorias" class="relative scroll-mt-20 overflow-hidden bg-[#071018] py-14 sm:py-24 lg:py-32 pb-24 sm:pb-32 lg:pb-40">
+      <div class="absolute inset-0 bg-soft-grid bg-[size:72px_72px] opacity-[0.10]" aria-hidden="true"></div>
+
+      <!-- Ambient glows -->
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div class="absolute left-0 top-1/3 h-[400px] w-[400px] rounded-full opacity-30" style="background: radial-gradient(circle, rgba(142,150,112,0.06), transparent 70%);"></div>
+        <div class="absolute right-0 bottom-1/3 h-[300px] w-[300px] rounded-full opacity-25" style="background: radial-gradient(circle, rgba(212,180,111,0.07), transparent 70%);"></div>
+      </div>
+
+      <div class="section-shell relative z-10">
+
+        <div class="mx-auto max-w-2xl text-center" data-reveal>
+          <p class="mb-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-olive">Categorías</p>
+          <h2 class="text-balance text-2xl font-semibold leading-tight text-cream sm:text-3xl lg:text-4xl">
+            Para cada ciclista, una bici diferente.
+          </h2>
+          <p class="mt-4 text-base leading-7 text-mist/60">
+            No existe la bici perfecta en abstracto. Existe la perfecta para ti.
+          </p>
+        </div>
+
+        <div data-stagger class="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 lg:grid-cols-4">
+          {categories.map((cat) => (
+            <article
+              data-stagger-item
+              class="group flex flex-col justify-between rounded-[1.75rem] border p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift"
+              style={`border-color: ${cat.accent.border}; background: ${cat.accent.bg};`}
+            >
+              <div>
+                <div class="mb-5 flex items-start justify-between">
+                  <span
+                    class="grid size-12 place-items-center rounded-full border"
+                    style={`color: ${cat.accent.text}; border-color: ${cat.accent.border}; background: ${cat.accent.glow};`}
+                  >
+                    <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={cat.svg}/>
+                  </span>
+                  <span
+                    class="rounded-full border px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wider"
+                    style={`color: ${cat.accent.text}; border-color: ${cat.accent.border};`}
+                  >{cat.tag}</span>
+                </div>
+                <h3 class="text-lg font-semibold text-cream">{cat.title}</h3>
+                <p class="mt-3 text-sm leading-6 text-mist/65">{cat.desc}</p>
+              </div>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noreferrer"
+                class="mt-7 inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 group-hover:gap-3"
+                style={`color: ${cat.accent.text};`}
+              >
+                Consultar disponibilidad
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">
+                  <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                </svg>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <!-- Wave: Categories → Reasons -->
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10 leading-[0]" aria-hidden="true">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(36px, 4.5vw, 60px);">
+          <path d="M0,30 C240,60 480,0 720,36 C960,72 1200,12 1440,40 L1440,60 L0,60 Z" fill="rgba(142,150,112,0.035)"/>
+          <path d="M0,44 C180,18 380,56 620,28 C860,0 1100,52 1340,22 L1440,16 L1440,60 L0,60 Z" fill="#05070A"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         4. POR QUÉ EOLO + IMAGEN
+    ══════════════════════════════════════════ -->
+    <section class="relative overflow-hidden py-14 sm:py-24 lg:py-32 pb-24 sm:pb-32 lg:pb-40">
+      <!-- Ambient -->
+      <div class="pointer-events-none absolute right-1/4 top-1/4 h-[400px] w-[400px] rounded-full opacity-20" style="background: radial-gradient(circle, rgba(142,150,112,0.08), transparent 70%);" aria-hidden="true"></div>
+
+      <div class="section-shell relative z-10 grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+
+        <!-- Image -->
+        <div class="relative" data-reveal>
+          <div class="glass-surface overflow-hidden rounded-[2rem] p-2">
+            <div class="relative aspect-[4/3] overflow-hidden rounded-[1.6rem]">
+              <Image
+                src={heroImage}
+                alt="Selección de bicicletas EOLO Bikes en Miami Platja"
+                loading="lazy"
+                decoding="async"
+                fetchpriority="low"
+                widths={[432, 640, 864]}
+                sizes="(min-width: 1024px) 47vw, calc(100vw - 2rem)"
+                class="h-full w-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-carbon/65 via-transparent to-transparent" aria-hidden="true"></div>
+            </div>
+          </div>
+          <!-- Floating badge -->
+          <div
+            class="absolute -bottom-5 left-4 right-4 flex items-center gap-3 rounded-[1.4rem] border border-olive/20 bg-carbon/85 px-5 py-4 shadow-lift backdrop-blur-xl sm:left-6 sm:right-auto sm:w-72"
+          >
+            <span class="grid size-10 shrink-0 place-items-center rounded-full bg-olive/12 text-olive">
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </span>
+            <div>
+              <p class="text-sm font-semibold text-cream">Punto ciclista</p>
+              <p class="text-xs text-mist/60">Tu tienda de referencia en la Costa Daurada</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reasons -->
+        <div data-reveal data-reveal-delay="0.1">
+          <p class="mb-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-olive">Por qué elegirnos</p>
+          <h2 class="text-balance text-2xl font-semibold leading-tight text-cream sm:text-3xl lg:text-4xl">
+            Compra con criterio, no con prisa.
+          </h2>
+          <p class="mt-4 mb-8 text-base leading-7 text-mist/65">
+            En EOLO no tienes prisa por vender. Tienes tiempo para escucharte y acertar.
+          </p>
+
+          <div data-stagger class="grid gap-4 sm:grid-cols-2">
+            {reasons.map((r) => (
+              <div
+                data-stagger-item
+                class="rounded-2xl border border-cream/[0.07] bg-cream/[0.04] p-5 transition-all duration-300 hover:border-olive/24 hover:bg-olive/8"
+              >
+                <div class="mb-3 size-2.5 rounded-full bg-olive/60" aria-hidden="true"></div>
+                <p class="text-sm font-semibold text-cream">{r.title}</p>
+                <p class="mt-2 text-xs leading-6 text-mist/60">{r.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noreferrer"
+              class="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full px-7 text-sm font-bold text-carbon transition-all duration-300 hover:-translate-y-0.5"
+              style="background: linear-gradient(90deg, #8E9670, #b5bc96); box-shadow: 0 0 24px rgba(142,150,112,0.22);"
+            >
+              Consultar por WhatsApp
+            </a>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noreferrer"
+              class="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full border border-cream/20 bg-cream/8 px-7 text-sm font-semibold text-cream backdrop-blur transition-all duration-300 hover:border-cream/36 hover:bg-cream/14"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+              </svg>
+              Ver novedades
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wave: Reasons → CTA -->
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10 leading-[0]" aria-hidden="true">
+        <svg viewBox="0 0 1440 52" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(30px, 4vw, 52px);">
+          <path d="M0,52 L1440,0 L0,0 Z" fill="rgba(142,150,112,0.04)"/>
+          <path d="M0,52 L1440,0 L1440,52 Z" fill="#071018"/>
+        </svg>
+      </div>
+    </section>
+
+    <CTASection />
+    <ContactSection />
+  </main>
+
+  <Footer />
+  <WhatsAppButton />
+</Layout>
+
+<style>
+  .font-accent {
+    font-family: "Playfair Display", Georgia, serif;
+  }
+
+  @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    :global(.sale-page > section) {
+      contain: paint;
+    }
+  }
+
+  @media (max-width: 767px) {
+    :global(.sale-page #categorias) {
+      scroll-margin-top: calc(8rem + env(safe-area-inset-top, 0px));
+    }
+  }
+</style>

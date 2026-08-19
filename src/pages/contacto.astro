@@ -1,0 +1,337 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import ContactSection from '@/components/ContactSection.astro';
+import Footer from '@/components/Footer.astro';
+import WhatsAppButton from '@/components/WhatsAppButton.astro';
+import { ADDRESS, INSTAGRAM_URL, PHONE_NUMBER, PHONE_NUMBER_E164, SITE_URL, WHATSAPP_URL } from '@/lib/constants';
+import { Image } from 'astro:assets';
+import heroImage from '@/assets/images/editorial-banner.jpg';
+
+const heroCards = [
+  {
+    label: 'Miami Platja',
+    sub: 'Av. Barcelona 111',
+    svg: `<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>`,
+    accent: '#7FD6FF',
+  },
+  {
+    label: 'Asesoramiento personalizado',
+    sub: 'Te escuchamos primero',
+    svg: `<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>`,
+    accent: '#D4B46F',
+  },
+  {
+    label: 'Taller especializado',
+    sub: 'Diagnóstico y puesta a punto',
+    svg: `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>`,
+    accent: '#8E9670',
+  },
+  {
+    label: 'Alquiler de bicicletas',
+    sub: 'Rutas y bicis revisadas',
+    svg: `<circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h2l2 6.5M6 17.5 12 6h5"/><path d="M6 17.5 9 9"/>`,
+    accent: '#00C9B1',
+  },
+];
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contacto EOLO Bikes Miami Platja',
+  description: 'Contacta con EOLO Bikes en Miami Platja por WhatsApp, teléfono o Instagram.',
+  url: `${SITE_URL}/contacto/`,
+  isPartOf: {
+    '@id': `${SITE_URL}/#website`,
+  },
+};
+---
+
+<Layout
+  title="Contacto EOLO Bikes | Bicicletas, taller y alquiler en Miami Platja"
+  description="Contacta con EOLO Bikes en Miami Platja. Venta, taller y alquiler de bicicletas. Consulta ubicación, teléfono, horarios y cómo llegar."
+  ogTitle="Contacto EOLO Bikes — Miami Platja"
+  ogDescription="Contacta con EOLO Bikes en Miami Platja: venta, taller y alquiler de bicicletas, ubicación, teléfono y horarios."
+  schema={pageSchema}
+>
+  <Header />
+
+  <main>
+
+    <!-- ══════════════════════════════════════════
+         1. HERO — Imagen real + editorial
+    ══════════════════════════════════════════ -->
+    <section class="relative isolate overflow-hidden" style="min-height: 84vh;">
+
+      <!-- Background: cycling image with cinematic overlay -->
+      <div class="absolute -inset-4 z-0 overflow-hidden" aria-hidden="true">
+        <Image
+          src={heroImage}
+          alt=""
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          draggable="false"
+          widths={[640, 960, 1280, 1440]}
+          sizes="100vw"
+          class="h-full w-full object-cover object-center pointer-events-none select-none"
+          style="transform: scale(1.05); transform-origin: center 38%;"
+        />
+        <!-- Cinematic overlay: cool wind-tinted left -->
+        <div
+          class="absolute inset-0"
+          style="background: linear-gradient(110deg, rgba(5,7,10,0.95) 0%, rgba(8,19,29,0.80) 34%, rgba(8,19,29,0.46) 66%, rgba(5,7,10,0.68) 100%);"
+        ></div>
+        <!-- Bottom dark pool -->
+        <div
+          class="absolute inset-x-0 bottom-0 h-52"
+          style="background: linear-gradient(to top, #05070A 0%, transparent 100%);"
+        ></div>
+      </div>
+
+      <!-- Ambient orbs -->
+      <div class="pointer-events-none absolute inset-0 z-[2]" aria-hidden="true">
+        <div class="absolute rounded-full" style="width: 500px; height: 500px; top: -120px; right: -60px; background: radial-gradient(circle, rgba(127,214,255,0.12) 0%, transparent 70%); filter: blur(1px);"></div>
+        <div class="absolute rounded-full" style="width: 360px; height: 360px; bottom: 70px; left: -80px; background: radial-gradient(circle, rgba(212,180,111,0.08) 0%, transparent 70%); filter: blur(1px);"></div>
+      </div>
+
+      <!-- Editorial word: HOLA -->
+      <div class="subpage-hero-word pointer-events-none absolute inset-0 z-[3] flex items-center overflow-hidden" aria-hidden="true">
+        <span
+          data-reveal
+          data-reveal-delay="0.08"
+          data-reveal-y="0"
+          class="select-none font-display font-black uppercase leading-none"
+          style="font-size: clamp(16vw, 22vw, 320px); color: transparent; -webkit-text-stroke: 1px rgba(127,214,255,0.11); letter-spacing: -0.04em;"
+        >HOLA</span>
+      </div>
+
+      <!-- Content -->
+      <div
+        class="relative z-10 mx-auto grid w-full items-center gap-12 px-5 pt-32 pb-28 sm:px-8 sm:pt-36 sm:pb-32 lg:grid-cols-[1.05fr_0.95fr] lg:pt-44 lg:pb-36"
+        style="max-width: 1200px; min-height: 84vh;"
+      >
+        <!-- Left column -->
+        <div>
+          <!-- Badge -->
+          <div
+            data-reveal
+            data-reveal-delay="0.25"
+            data-reveal-y="16"
+            class="mb-6 inline-flex w-fit items-center gap-2 rounded-full border px-4 py-1.5"
+            style="border-color: rgba(127,214,255,0.28); background: rgba(127,214,255,0.08); backdrop-filter: blur(12px);"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7FD6FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            <span class="text-xs font-semibold uppercase tracking-widest text-wind">Venta · Taller · Alquiler · Asesoramiento</span>
+          </div>
+
+          <!-- Headline -->
+          <h1
+            data-hero-title
+            class="font-display font-black uppercase leading-[0.9] tracking-tight text-cream"
+            style="font-size: clamp(2rem, 5.4vw, 5.2rem); max-width: 14ch;"
+          >
+            Contacta con<br />{' '}
+            <span
+              class="hero-accent-mark font-accent"
+              style="color: transparent; -webkit-text-stroke: 1.2px #7FD6FF; background: linear-gradient(90deg, #7FD6FF, #a8edff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
+            >EOLO Bikes</span>
+          </h1>
+
+          <!-- Subtitle -->
+          <p
+            data-hero-subtitle
+            class="mt-6 max-w-xl leading-relaxed sm:mt-7"
+            style="color: rgba(201,208,214,0.72); font-size: clamp(0.9rem, 1.45vw, 1.1rem);"
+          >
+            Estamos en Miami Platja para ayudarte a encontrar tu próxima bicicleta,<br class="hidden sm:block"/>
+            preparar tu ruta, reservar tu alquiler o dejar tu bici en las mejores manos.
+          </p>
+
+          <!-- CTAs -->
+          <div
+            data-hero-buttons
+            class="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4"
+          >
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Hablar con EOLO Bikes por WhatsApp"
+              class="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full px-8 text-sm font-bold text-carbon transition-all duration-300 hover:-translate-y-0.5"
+              style="background: linear-gradient(90deg, #7FD6FF 0%, #a8edff 100%); box-shadow: 0 0 32px rgba(127,214,255,0.28);"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>
+              </svg>
+              Hablar con EOLO
+            </a>
+            <a
+              href="#ubicacion"
+              class="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full border px-8 text-sm font-semibold text-cream backdrop-blur-sm transition-all duration-300 hover:border-cream/40 hover:bg-cream/10"
+              style="border-color: rgba(245,240,230,0.2); background: rgba(245,240,230,0.05);"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              Ver ubicación
+            </a>
+          </div>
+
+          <!-- Location pill -->
+          <div
+            data-reveal
+            data-reveal-delay="1.1"
+            data-reveal-y="12"
+            class="mt-8 flex items-center gap-2.5"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: rgba(127,214,255,0.6);" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span class="text-xs tracking-widest uppercase" style="color: rgba(201,208,214,0.45);">{ADDRESS} · Costa Daurada · Tarragona</span>
+          </div>
+        </div>
+
+        <!-- Right column: floating cards (desktop only) -->
+        <div data-stagger class="hidden lg:flex lg:flex-col lg:gap-4 lg:pl-8">
+          {heroCards.map((card, i) => (
+            <div data-stagger-item class={i % 2 === 1 ? 'lg:translate-x-8' : ''}>
+              <div
+                class="animate-float flex items-center gap-4 rounded-2xl border p-4 shadow-lift backdrop-blur-xl"
+                style={`border-color: rgba(245,240,230,0.12); background: linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.035)); animation-delay: ${i * 0.8}s;`}
+              >
+                <span
+                  class="grid size-11 shrink-0 place-items-center rounded-full border"
+                  style={`border-color: ${card.accent}33; background: ${card.accent}1f; color: ${card.accent};`}
+                >
+                  <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={card.svg}/>
+                </span>
+                <div>
+                  <p class="text-sm font-semibold text-cream">{card.label}</p>
+                  <p class="mt-0.5 text-xs text-mist/60">{card.sub}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Wave: Hero → Quick contact -->
+      <div class="absolute inset-x-0 bottom-0 z-20 leading-[0]" aria-hidden="true">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(48px, 6vw, 80px);">
+          <path d="M0,40 C360,80 720,0 1080,50 C1260,75 1380,30 1440,44 L1440,80 L0,80 Z" fill="rgba(127,214,255,0.04)"/>
+          <path d="M0,56 C200,24 450,70 720,42 C960,14 1200,62 1440,36 L1440,80 L0,80 Z" fill="#05070A"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Opciones rápidas de contacto -->
+    <section id="contacto-directo" class="relative scroll-mt-20 overflow-hidden py-16 sm:py-20">
+      <div class="section-shell">
+        <div class="grid gap-5 sm:grid-cols-3">
+
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Contactar por WhatsApp"
+            class="group flex flex-col gap-5 rounded-[1.75rem] border border-cream/10 bg-cream/[0.055] p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-[#25D366]/30 hover:bg-[#25D366]/8"
+          >
+            <span class="grid size-12 place-items-center rounded-full bg-[#25D366]/12 text-[#25D366]">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </span>
+            <div>
+              <h2 class="text-xl font-semibold text-cream">WhatsApp</h2>
+              <p class="mt-2 text-sm leading-7 text-mist/72">La forma más rápida de contactarnos. Reserva taller, consulta alquileres o haznos cualquier pregunta.</p>
+            </div>
+            <span class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-[#25D366]">
+              Escribir ahora
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+
+          <a
+            href={`tel:${PHONE_NUMBER_E164}`}
+            aria-label="Llamar a EOLO Bikes"
+            class="group flex flex-col gap-5 rounded-[1.75rem] border border-cream/10 bg-cream/[0.055] p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-wind/30 hover:bg-wind/8"
+          >
+            <span class="grid size-12 place-items-center rounded-full bg-wind/18 text-wind">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l.81-.81a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </span>
+            <div>
+              <h2 class="text-xl font-semibold text-cream">Teléfono</h2>
+              <p class="mt-2 text-sm leading-7 text-mist/72">Llámanos directamente durante nuestro horario de atención. Estaremos encantados de ayudarte.</p>
+              <p class="mt-3 text-sm font-semibold text-cream">{PHONE_NUMBER}</p>
+            </div>
+            <span class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-wind">
+              Llamar ahora
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Ver Instagram de EOLO Bikes"
+            class="group flex flex-col gap-5 rounded-[1.75rem] border border-cream/10 bg-cream/[0.055] p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-pink-500/30 hover:bg-pink-500/8"
+          >
+            <span class="grid size-12 place-items-center rounded-full bg-pink-500/18 text-pink-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+              </svg>
+            </span>
+            <div>
+              <h2 class="text-xl font-semibold text-cream">Instagram</h2>
+              <p class="mt-2 text-sm leading-7 text-mist/72">Síguenos para ver novedades, trabajos de taller, rutas y vida ciclista en Miami Platja.</p>
+              <p class="mt-3 text-sm font-semibold text-pink-400">@eolobikes</p>
+            </div>
+            <span class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-pink-400">
+              Seguirnos
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+
+        </div>
+
+        <!-- Dirección -->
+        <div id="ubicacion" data-reveal class="mt-8 flex scroll-mt-24 items-start gap-4 rounded-[1.75rem] border border-cream/10 bg-cream/[0.055] p-7">
+          <span class="grid size-12 shrink-0 place-items-center rounded-full bg-sand/12 text-sand">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+          </span>
+          <div>
+            <h2 class="text-xl font-semibold text-cream">Dónde encontrarnos</h2>
+            <p class="mt-2 text-base leading-7 text-mist/78">{ADDRESS} · Costa Daurada · Tarragona</p>
+            <a
+              href="https://www.google.com/maps?q=Av.+Barcelona+111,+Miami+Platja"
+              target="_blank"
+              rel="noreferrer"
+              class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-sand transition-colors hover:text-cream"
+            >
+              Ver en Google Maps →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <ContactSection />
+  </main>
+
+  <Footer />
+  <WhatsAppButton />
+</Layout>

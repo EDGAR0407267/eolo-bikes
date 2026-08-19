@@ -1,0 +1,438 @@
+---
+import SectionTitle from './SectionTitle.astro';
+
+const reviews = [
+  {
+    name: 'Martina Sánchez',
+    location: 'Barcelona',
+    rating: 5,
+    text: 'Alquilamos las bicis para toda la familia y fue una experiencia increíble. Perfectas condiciones, trato amable y nos dieron rutas geniales por la costa.',
+    date: 'Mayo 2025',
+    avatar: 'MS',
+  },
+  {
+    name: 'Jordi Puig',
+    location: 'Tarragona',
+    rating: 5,
+    text: 'Llevé mi bici al taller con un problema de cambios que nadie había podido arreglar. En EOLO lo resolvieron en el momento. Profesionalidad total.',
+    date: 'Abril 2025',
+    avatar: 'JP',
+  },
+  {
+    name: 'Lucia Ferretti',
+    location: 'Milano',
+    rating: 5,
+    text: 'Estuvimos de vacaciones en Miami Platja y alquilamos aquí. Bicicletas en perfecto estado, precios muy razonables y el equipo fue súper atento.',
+    date: 'Junio 2025',
+    avatar: 'LF',
+  },
+  {
+    name: 'Carlos Morales',
+    location: 'Madrid',
+    rating: 5,
+    text: 'Compré una bici de segunda mano que revisaron completamente antes de vendérmela. Salí con total confianza. Muy recomendable.',
+    date: 'Marzo 2025',
+    avatar: 'CM',
+  },
+  {
+    name: 'Anna Vidal',
+    location: 'Reus',
+    rating: 5,
+    text: 'El trato es excelente, te explican todo con paciencia y no te presionan. Vinimos tres veces y siempre igual de bien. Es nuestra tienda de confianza.',
+    date: 'Abril 2025',
+    avatar: 'AV',
+  },
+  {
+    name: 'Thomas Brandt',
+    location: 'Hamburg',
+    rating: 5,
+    text: 'Very professional bike shop. Rented two bikes for a week and they were in perfect condition. They even recommended the best coastal routes. Will come back!',
+    date: 'Mayo 2025',
+    avatar: 'TB',
+  },
+  {
+    name: 'Marta Olivé',
+    location: 'Cambrils',
+    rating: 5,
+    text: 'Revisión rápida y honesta. Me explicaron qué necesitaba realmente y qué podía esperar. Sin sustos en la factura. Totalmente recomendables.',
+    date: 'Febrero 2025',
+    avatar: 'MO',
+  },
+  {
+    name: 'Pau Recasens',
+    location: 'Miami Platja',
+    rating: 5,
+    text: 'El mejor punto ciclista de la zona sin duda. Llevan años aquí y se nota la experiencia. Siempre que tengo cualquier problema con la bici, vengo directamente.',
+    date: 'Enero 2025',
+    avatar: 'PR',
+  },
+  {
+    name: 'Sophie Dubois',
+    location: 'Lyon',
+    rating: 5,
+    text: 'Nous avons loué des vélos pour une semaine et tout était parfait. Vélos impeccables, accueil chaleureux et de très bons conseils sur les itinéraires. Je recommande vivement !',
+    date: 'Julio 2025',
+    avatar: 'SD',
+  },
+  {
+    name: 'David Romero',
+    location: 'Zaragoza',
+    rating: 5,
+    text: 'Compré una bici de carretera y el asesoramiento fue de diez. Me ayudaron a elegir según mi nivel sin intentar venderme la más cara. Se nota que saben y que les gusta.',
+    date: 'Junio 2025',
+    avatar: 'DR',
+  },
+  {
+    name: 'Núria Camps',
+    location: 'Salou',
+    rating: 5,
+    text: 'Reservé una puesta a punto antes del verano y quedó como nueva. Cumplen los plazos, te avisan de todo y el precio es justo. Una tienda de barrio con nivel profesional.',
+    date: 'Mayo 2025',
+    avatar: 'NC',
+  },
+  {
+    name: 'James Whitfield',
+    location: 'Manchester',
+    rating: 5,
+    text: 'Brilliant service from start to finish. Hired e-bikes for our stay and they sorted everything, including helmets and route maps. Friendly, knowledgeable and great value.',
+    date: 'Agosto 2025',
+    avatar: 'JW',
+  },
+  {
+    name: 'Elena Costa',
+    location: 'Reus',
+    rating: 5,
+    text: 'Llevo años viniendo y nunca me han fallado. Honestos, cercanos y resolutivos. Te tratan igual de bien tanto si vienes a comprar como si solo necesitas hinchar una rueda.',
+    date: 'Septiembre 2025',
+    avatar: 'EC',
+  },
+  {
+    name: 'Marc Vilanova',
+    location: "L'Hospitalet de l'Infant",
+    rating: 5,
+    text: 'Pinché en plena ruta y me acerqué sin cita. Me lo solucionaron al momento y con una sonrisa. Trato impecable y precios honestos. Da gusto tener un taller así cerca.',
+    date: 'Octubre 2025',
+    avatar: 'MV',
+  },
+];
+
+const avatarColors = [
+  'from-wind/40 to-turquoise/30',
+  'from-sand/40 to-olive/30',
+  'from-turquoise/40 to-wind/30',
+  'from-olive/40 to-sand/30',
+];
+---
+
+<section id="resenas" class="relative scroll-mt-20 overflow-hidden py-14 sm:py-24 lg:py-32">
+  <!-- Ambient glow (radial-gradient instead of a 100px+ filter blur on a solid
+       circle: same soft halo, no expensive large-radius blur rasterization) -->
+  <div class="pointer-events-none absolute left-1/4 top-1/2 hidden h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full md:block" style="background: radial-gradient(circle, rgba(127,214,255,0.10), transparent 70%);" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute right-1/4 top-1/3 hidden h-[400px] w-[400px] translate-x-1/2 rounded-full md:block" style="background: radial-gradient(circle, rgba(0,201,177,0.12), transparent 70%);" aria-hidden="true"></div>
+
+  <!-- Top separator line -->
+  <div class="absolute left-1/2 top-8 h-px w-[78vw] -translate-x-1/2 bg-gradient-to-r from-transparent via-cream/16 to-transparent" aria-hidden="true"></div>
+
+  <div class="section-shell">
+    <div class="flex flex-col items-center gap-4 text-center" data-section-title>
+      <!-- Google badge -->
+      <div class="inline-flex items-center gap-2.5 rounded-full border border-cream/10 bg-cream/[0.055] px-4 py-2 backdrop-blur-md">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        <span class="text-xs font-semibold uppercase tracking-widest text-mist/70">Reseñas de Google</span>
+      </div>
+
+      <SectionTitle
+        title="Lo que dicen nuestros clientes."
+        text="Más de 50 reseñas de cinco estrellas. Opiniones reales de personas que han pasado por EOLO."
+        align="center"
+      />
+
+      <!-- Rating summary -->
+      <div class="mt-2 flex items-center gap-3" data-reveal>
+        <span class="text-5xl font-bold text-cream">5.0</span>
+        <div class="flex flex-col items-start gap-1">
+          <div class="flex gap-1" aria-label="5 de 5 estrellas">
+            {Array.from({ length: 5 }).map(() => (
+              <svg class="h-5 w-5 text-[#FBBC05]" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            ))}
+          </div>
+          <span class="text-sm text-mist/60">Basado en Google Reviews</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Infinite scroll track — full width, outside shell -->
+  <div class="reviews-ticker mt-16" role="region" aria-label="Carrusel de reseñas (arrastra para desplazar)">
+    <div class="reviews-track flex w-max gap-5" id="reviewsTrack">
+      {[...reviews, ...reviews].map((review, i) => (
+        <article
+          class="review-card group relative flex w-[320px] shrink-0 flex-col justify-between rounded-[1.75rem] border border-cream/[0.08] bg-cream/[0.05] p-7 transition-all duration-500 hover:border-wind/25 hover:bg-cream/[0.07] hover:shadow-lift sm:w-[360px]"
+          aria-hidden={i >= reviews.length ? 'true' : undefined}
+        >
+          <!-- Quote mark -->
+          <div class="absolute right-7 top-6 text-5xl font-serif leading-none text-wind/10 select-none" aria-hidden="true">"</div>
+
+          <!-- Stars -->
+          <div class="flex gap-1 mb-5" aria-label={`${review.rating} estrellas`}>
+            {Array.from({ length: review.rating }).map(() => (
+              <svg class="h-4 w-4 text-[#FBBC05]" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            ))}
+          </div>
+
+          <!-- Review text -->
+          <p class="flex-1 text-[0.94rem] leading-[1.7] text-mist/78">{review.text}</p>
+
+          <!-- Author -->
+          <div class="mt-6 flex items-center gap-3">
+            <div class:list={[
+              'flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br text-xs font-bold text-carbon',
+              avatarColors[i % avatarColors.length],
+            ]}>
+              {review.avatar}
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-cream">{review.name}</p>
+              <p class="text-xs text-mist/50">{review.location} · {review.date}</p>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <!-- Fade masks left/right -->
+  <div class="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-night to-transparent" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-night to-transparent" aria-hidden="true"></div>
+</section>
+
+<style>
+  .reviews-ticker {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  }
+
+  /* Transform-driven infinite ticker. We move the track with translateX and a
+     modulo offset (no native scroll), so there are NO scroll boundaries to snap
+     against — dragging with mouse or finger loops endlessly in both directions.
+     touch-action: pan-y keeps vertical page scrolling working on mobile. */
+  .reviews-ticker {
+    overflow: hidden;
+    cursor: grab;
+    touch-action: pan-y;
+  }
+
+  .reviews-ticker.is-dragging {
+    cursor: grabbing;
+    user-select: none;
+  }
+
+  .review-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      ellipse at 50% 0%,
+      rgba(127, 214, 255, 0.06) 0%,
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+
+  .review-card:hover::before {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  // Transform-driven infinite ticker. The track is moved with translateX by a
+  // single `offset` value that is wrapped modulo one set width, so there are NO
+  // scroll boundaries: dragging with mouse or finger loops endlessly in both
+  // directions and never "snaps back to the start". Auto-advance and dragging
+  // share the same offset + render path, so they can never fight each other.
+  function initReviewsTicker() {
+    const ticker = document.querySelector<HTMLElement>('.reviews-ticker');
+    const track = ticker?.querySelector<HTMLElement>('.reviews-track');
+    if (!ticker || !track) return;
+    if (ticker.dataset.reviewsTickerBound === 'true') return;
+    ticker.dataset.reviewsTickerBound = 'true';
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canObserve = 'IntersectionObserver' in window;
+    const SPEED = 110; // px/s auto-scroll
+
+    let onScreen = !canObserve;
+    let hovering = false;
+    let dragging = false;
+    let offset = 0;
+    let last = performance.now();
+
+    const syncLayerHint = () => {
+      track.style.willChange = !reduce && (onScreen || dragging) ? 'transform' : 'auto';
+    };
+
+    // Exact width of ONE set of reviews = distance between the first card and its
+    // duplicate. This includes the inter-copy flex gap, so wrapping by it is
+    // pixel-seamless (scrollWidth/2 would be off by half a gap and drift).
+    let setWidth = 0;
+    const measure = () => {
+      const cards = track.children;
+      const n = Math.floor(cards.length / 2);
+      if (n >= 1 && cards[n]) {
+        setWidth =
+          cards[n].getBoundingClientRect().left -
+          cards[0].getBoundingClientRect().left;
+      }
+      if (!(setWidth > 0)) setWidth = track.scrollWidth / 2;
+    };
+
+    const norm = () => {
+      if (setWidth > 0) offset = ((offset % setWidth) + setWidth) % setWidth;
+    };
+    const render = () => {
+      track.style.transform = `translate3d(${(-offset).toFixed(2)}px, 0, 0)`;
+    };
+
+    measure();
+    syncLayerHint();
+    render();
+
+    // The rAF loop is fully stopped whenever the carousel is paused (off-screen,
+    // tab hidden, hover, dragging or reduced-motion) so it doesn't keep the main
+    // thread / GPU busy when nobody is watching, then restarted on demand.
+    let rafId = 0;
+    const shouldRun = () =>
+      !(reduce || !onScreen || document.hidden || hovering || dragging);
+
+    const tick = (now: number) => {
+      const dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      offset += SPEED * dt;
+      norm();
+      render();
+      rafId = shouldRun() ? requestAnimationFrame(tick) : 0;
+    };
+    const start = () => {
+      if (rafId || !shouldRun()) return;
+      last = performance.now();
+      rafId = requestAnimationFrame(tick);
+    };
+    start();
+
+    const remeasure = () => {
+      measure();
+      norm();
+      render();
+    };
+    window.addEventListener('resize', remeasure);
+    if ('ResizeObserver' in window) new ResizeObserver(remeasure).observe(track);
+
+    // Hover pause (mouse only — touch shouldn't freeze the carousel).
+    ticker.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse') hovering = true;
+    });
+    ticker.addEventListener('pointerleave', () => {
+      hovering = false;
+      start();
+    });
+
+    // Unified drag for mouse, pen AND touch. On touch we lock the axis on the
+    // first move: horizontal drags the carousel, vertical lets the page scroll.
+    let startX = 0;
+    let startY = 0;
+    let startOffset = 0;
+    let axis: '' | 'x' | 'y' = '';
+
+    ticker.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      syncLayerHint();
+      axis = e.pointerType === 'touch' ? '' : 'x';
+      startX = e.clientX;
+      startY = e.clientY;
+      startOffset = offset;
+      ticker.classList.add('is-dragging');
+      if (axis === 'x') {
+        try { ticker.setPointerCapture(e.pointerId); } catch {}
+      }
+    });
+
+    ticker.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      if (axis === '') {
+        if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+        axis = Math.abs(dx) >= Math.abs(dy) ? 'x' : 'y';
+        if (axis === 'y') {
+          // Vertical intent: release so the page scrolls normally.
+          dragging = false;
+          ticker.classList.remove('is-dragging');
+          return;
+        }
+        try { ticker.setPointerCapture(e.pointerId); } catch {}
+      }
+
+      // Dragging right (dx > 0) reveals previous cards → offset decreases.
+      offset = startOffset - dx;
+      norm();
+      render();
+    });
+
+    const endDrag = (e: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      axis = '';
+      ticker.classList.remove('is-dragging');
+      try { ticker.releasePointerCapture(e.pointerId); } catch {}
+      syncLayerHint();
+      start();
+    };
+    ticker.addEventListener('pointerup', endDrag);
+    ticker.addEventListener('pointercancel', endDrag);
+    ticker.addEventListener('dragstart', (e) => e.preventDefault());
+
+    if (canObserve) {
+      new IntersectionObserver(
+        (entries) => {
+          onScreen = entries[0].isIntersecting;
+          syncLayerHint();
+          start();
+        },
+        { rootMargin: '200px 0px' },
+      ).observe(ticker);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      last = performance.now();
+      start();
+    });
+  }
+
+  initReviewsTicker();
+  document.addEventListener('astro:after-swap', initReviewsTicker);
+</script>

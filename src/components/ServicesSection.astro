@@ -1,0 +1,50 @@
+---
+import SectionTitle from './SectionTitle.astro';
+import { SERVICES } from '@/lib/constants';
+---
+
+<section id="servicios" class="relative scroll-mt-20 overflow-hidden py-14 sm:py-24 lg:py-32 pb-20 sm:pb-28 lg:pb-36">
+  <div class="absolute left-1/2 top-8 h-px w-[78vw] -translate-x-1/2 bg-gradient-to-r from-transparent via-cream/16 to-transparent" aria-hidden="true"></div>
+
+  <div class="section-shell">
+    <SectionTitle
+      title="Venta, taller y alquiler en un mismo punto ciclista."
+      text="Tres servicios conectados por la misma idea: que cada bicicleta salga mejor preparada para la ruta que tiene por delante."
+      align="center"
+    />
+
+    <div class="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
+      {SERVICES.map((service) => (
+        <article
+          class="group flex flex-col justify-between rounded-[1.75rem] border border-cream/10 bg-cream/[0.055] p-7 backdrop-blur-xl transition-all duration-400 hover:-translate-y-1.5 hover:border-wind/30 hover:bg-cream/[0.08] hover:shadow-lift sm:p-8"
+        >
+          <div>
+            <!-- Accent dot -->
+            <div class="mb-7 size-3 rounded-full bg-wind/60"></div>
+            <h3 class="text-xl font-semibold text-cream sm:text-2xl">{service.title}</h3>
+            <p class="mt-4 text-base leading-7 text-mist/72">{service.description}</p>
+          </div>
+
+          <a
+            href={service.href}
+            class="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-wind transition-all duration-300 group-hover:gap-3"
+            aria-label={`${service.cta} — ${service.title}`}
+          >
+            {service.cta}
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <!-- Two-layer organic wave: Services → Manifesto -->
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10 leading-[0]" aria-hidden="true">
+    <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(44px, 5.5vw, 72px);">
+      <path d="M0,36 C240,72 480,8 720,44 C960,80 1200,18 1440,52 L1440,72 L0,72 Z" fill="rgba(127,214,255,0.035)"/>
+      <path d="M0,52 C180,22 400,66 640,36 C880,6 1120,60 1320,32 L1440,26 L1440,72 L0,72 Z" fill="#05070A"/>
+    </svg>
+  </div>
+</section>

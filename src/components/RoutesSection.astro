@@ -1,0 +1,85 @@
+---
+import SectionTitle from './SectionTitle.astro';
+import { ROUTES } from '@/lib/constants';
+---
+
+<section id="rutas" class="relative scroll-mt-20 overflow-hidden bg-cream py-14 text-carbon sm:py-24 lg:py-32 pb-24 sm:pb-32 lg:pb-40">
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_78%_24%,rgba(127,214,255,0.2),transparent_24rem),radial-gradient(circle_at_8%_82%,rgba(142,150,112,0.14),transparent_24rem)]" aria-hidden="true"></div>
+
+  <div class="section-shell">
+    <div data-reveal>
+      <SectionTitle
+        title="Rutas, costa y comunidad ciclista"
+        text="EOLO no es solo una tienda. Es un punto de encuentro para ciclistas, vecinos y visitantes que quieren moverse mejor."
+        align="center"
+        light
+      />
+    </div>
+
+    <div class="mt-14 grid gap-4 md:grid-cols-2">
+      {ROUTES.map((route, index) => (
+        <a
+          href={'url' in route ? route.url : undefined}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Ver ruta: ${route.title}`}
+          class="group flex min-h-48 flex-col justify-between rounded-[1.5rem] border border-carbon/10 bg-white/58 p-6 shadow-[0_18px_48px_rgba(5,7,10,0.08)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:bg-white"
+        >
+          <div class="flex items-start justify-between gap-6">
+            <span class="grid size-12 place-items-center rounded-full bg-carbon text-cream">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 11l19-9-9 19-2-8-8-2z"/>
+              </svg>
+            </span>
+            <span class="text-sm font-semibold text-carbon/40">{String(index + 1).padStart(2, '0')}</span>
+          </div>
+          <div>
+            <h3 class="mt-4 text-xl font-semibold leading-tight text-carbon">{route.title}</h3>
+            <p class="mt-3 text-sm leading-7 text-carbon/62">{route.description}</p>
+            <!-- Stats row -->
+            {'distance' in route && (
+              <div class="mt-4 flex flex-wrap gap-3">
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-carbon/12 bg-carbon/5 px-3 py-1 text-[11px] font-semibold text-carbon/60">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  {route.distance}
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-carbon/12 bg-carbon/5 px-3 py-1 text-[11px] font-semibold text-carbon/60">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 17 4-8 4 4 4-6 4 6"/></svg>
+                  {route.elevation}
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-carbon/12 bg-carbon/5 px-3 py-1 text-[11px] font-semibold text-carbon/60">
+                  {route.type}
+                </span>
+                <span class={`inline-flex items-center rounded-full px-3 py-1 text-[11px] font-bold ${
+                  route.difficulty === 'Fácil'
+                    ? 'bg-emerald-100 text-emerald-700'
+                    : route.difficulty === 'Media-Alta'
+                    ? 'bg-amber-100 text-amber-700'
+                    : 'bg-red-100 text-red-700'
+                }`}>
+                  {route.difficulty}
+                </span>
+              </div>
+            )}
+            <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-carbon/72 transition-all duration-300 group-hover:gap-3">
+              Ver ruta
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- Two-layer dark wave: cream → dark (GallerySection) -->
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10 leading-[0]" aria-hidden="true">
+    <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(56px, 7vw, 88px);">
+      <!-- Back wave: semi-transparent dark hint on cream -->
+      <path d="M0,88 C300,46 600,74 900,52 C1100,38 1280,64 1440,50 L1440,88 Z" fill="rgba(5,7,10,0.12)"/>
+      <!-- Main dark wave -->
+      <path d="M0,88 C200,52 450,78 700,56 C950,34 1200,70 1440,46 L1440,88 Z" fill="#05070A"/>
+    </svg>
+  </div>
+</section>

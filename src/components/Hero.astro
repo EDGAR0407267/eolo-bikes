@@ -1,0 +1,380 @@
+---
+import { Image } from 'astro:assets';
+import heroImage from '@/assets/images/eolo-hero.png';
+---
+
+<section
+  id="inicio"
+  class="hero-root relative isolate overflow-hidden"
+  style="height: 100svh; min-height: 680px;"
+>
+
+  <!-- ── Layer 0: Cinematic background image ───────────────────────────── -->
+  <div
+    class="hero-bg absolute -inset-4 z-0 overflow-hidden"
+    aria-hidden="true"
+  >
+    <Image
+      src={heroImage}
+      alt=""
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      draggable="false"
+      widths={[640, 960, 1280, 1774]}
+      sizes="100vw"
+      class="h-full w-full object-cover object-center pointer-events-none select-none"
+      style="transform: scale(1.08); transform-origin: center center;"
+    />
+    <!-- Multi-stop cinematic dark overlay -->
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(105deg, rgba(5,7,10,0.92) 0%, rgba(8,19,29,0.78) 35%, rgba(8,19,29,0.52) 65%, rgba(5,7,10,0.70) 100%);"
+      aria-hidden="true"
+    ></div>
+    <!-- Bottom dark pool for wave transition -->
+    <div
+      class="absolute inset-x-0 bottom-0 h-64"
+      style="background: linear-gradient(to top, #05070A 0%, transparent 100%);"
+      aria-hidden="true"
+    ></div>
+  </div>
+
+  <!-- ── Layer 1: Grain overlay ────────────────────────────────────────── -->
+  <div
+    class="pointer-events-none absolute inset-0 z-[1] opacity-[0.05]"
+    style="background-image: url(data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E); background-size: 256px 256px;"
+    aria-hidden="true"
+  ></div>
+
+  <!-- ── Layer 2: Giant editorial word ─────────────────────────────────── -->
+  <div
+    class="hero-word pointer-events-none absolute inset-0 z-[2] flex items-center justify-center overflow-hidden"
+    aria-hidden="true"
+  >
+    <span
+      class="select-none font-display font-black uppercase leading-none"
+      style="
+        font-size: clamp(22vw, 28vw, 380px);
+        color: transparent;
+        -webkit-text-stroke: 1.5px rgba(127,214,255,0.22);
+        letter-spacing: -0.04em;
+        user-select: none;
+        opacity: 0;
+      "
+      id="hero-word-el"
+      data-hero-reveal
+      data-reveal-delay="0.1"
+      data-reveal-y="0"
+    >RIDE</span>
+  </div>
+
+  <!-- ── Layer 3: Floating accent orbs ─────────────────────────────────── -->
+  <div class="pointer-events-none absolute inset-0 z-[3]" aria-hidden="true">
+    <div
+      class="hero-orb-1 absolute rounded-full"
+      style="width: 520px; height: 520px; top: -160px; right: -80px; background: radial-gradient(circle, rgba(127,214,255,0.12) 0%, transparent 70%); filter: blur(1px);"
+    ></div>
+    <div
+      class="hero-orb-2 absolute rounded-full"
+      style="width: 380px; height: 380px; bottom: 80px; left: -100px; background: radial-gradient(circle, rgba(212,180,111,0.09) 0%, transparent 70%); filter: blur(1px);"
+    ></div>
+  </div>
+
+  <!-- ── Layer 4: Main content ──────────────────────────────────────────── -->
+  <div
+    class="hero-content relative z-10 mx-auto flex h-full w-full flex-col justify-center px-5 pb-20 pt-24 sm:px-8 sm:pb-24 sm:pt-28"
+    style="max-width: 1200px;"
+  >
+
+    <!-- Badge -->
+    <div
+      id="hero-badge"
+      data-hero-reveal
+      data-reveal-delay="0.3"
+      data-reveal-y="18"
+      class="mb-6 inline-flex w-fit items-center gap-2 rounded-full border px-4 py-1.5 sm:mb-8"
+      style="border-color: rgba(127,214,255,0.25); background: rgba(127,214,255,0.06); backdrop-filter: blur(12px); opacity: 0;"
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-wind" aria-hidden="true">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      <span class="text-xs font-semibold uppercase tracking-widest text-wind">Punto ciclista</span>
+    </div>
+
+    <!-- Headline -->
+    <h1
+      id="hero-title"
+      data-hero-reveal
+      data-reveal-delay="0.55"
+      data-reveal-y="56"
+      class="max-w-3xl font-display font-black uppercase leading-[0.88] tracking-tight text-cream"
+      style="font-size: clamp(2.6rem, 8.5vw, 7.2rem); opacity: 0;"
+    >
+      Tu aventura<br />{' '}
+      <span
+        class="hero-accent-mark relative inline-block font-accent"
+        style="color: transparent; -webkit-text-stroke: 1.2px #7FD6FF; background: linear-gradient(90deg, #7FD6FF, #a8edff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
+      >empieza aquí</span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p
+      id="hero-subtitle"
+      data-hero-reveal
+      data-reveal-delay="0.78"
+      data-reveal-y="32"
+      class="mt-5 max-w-xl text-base leading-relaxed sm:mt-7"
+      style="color: rgba(201,208,214,0.72); font-size: clamp(0.9rem, 1.5vw, 1.15rem); opacity: 0;"
+    >
+      Venta, alquiler y servicio técnico especializado para descubrir<br class="hidden sm:block"/>
+      la Costa Mediterránea sobre dos ruedas.
+    </p>
+
+    <!-- CTA buttons + Location -->
+    <div
+      id="hero-buttons"
+      data-hero-reveal
+      data-reveal-delay="0.95"
+      data-reveal-y="24"
+      class="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+      style="opacity: 0;"
+    >
+      <div class="flex flex-col gap-3 sm:flex-row sm:gap-4">
+        <a
+          href="/alquiler-bicicletas-miami-platja"
+          class="hero-btn-primary group inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full px-8 text-sm font-bold text-carbon transition-all duration-300"
+          style="background: linear-gradient(90deg, #7FD6FF 0%, #a8edff 100%); box-shadow: 0 0 32px rgba(127,214,255,0.28);"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          Alquilar bicicleta
+        </a>
+
+        <a
+          href="/venta-bicicletas-miami-platja"
+          class="hero-btn-secondary group inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full border px-8 text-sm font-semibold text-cream backdrop-blur-sm transition-all duration-300"
+          style="border-color: rgba(245,240,230,0.2); background: rgba(245,240,230,0.05);"
+        >
+          Descubrir bicicletas
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Location pill — right side -->
+      <div id="hero-location" class="flex items-center gap-2 sm:ml-auto">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: rgba(127,214,255,0.6); flex-shrink:0;" aria-hidden="true">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+        <span class="text-xs tracking-widest uppercase" style="color: rgba(201,208,214,0.45);">Miami Platja · Costa Daurada · Tarragona</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Scroll indicator ───────────────────────────────────────────────── -->
+  <div
+    id="hero-scroll"
+    data-hero-reveal
+    data-reveal-delay="1.4"
+    data-reveal-y="0"
+    class="absolute bottom-28 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2"
+    style="opacity: 0;"
+    aria-hidden="true"
+  >
+    <span class="text-[10px] uppercase tracking-[0.28em]" style="color: rgba(201,208,214,0.4);">Scroll</span>
+    <div
+      class="relative h-10 w-[1px] overflow-hidden"
+      style="background: rgba(201,208,214,0.12);"
+    >
+      <div id="scroll-line" class="absolute top-0 left-0 w-full" style="background: linear-gradient(to bottom, #7FD6FF, transparent); height: 40%; transform: translateY(-100%);"></div>
+    </div>
+  </div>
+
+  <!-- ── Wave transition ────────────────────────────────────────────────── -->
+  <div class="absolute inset-x-0 bottom-0 z-20 leading-[0]" aria-hidden="true">
+    <svg
+      viewBox="0 0 1440 110"
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+      class="block w-full"
+      style="height: clamp(60px, 8vw, 110px);"
+    >
+      <defs>
+        <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#05070A"/>
+          <stop offset="45%" stop-color="#08131D"/>
+          <stop offset="100%" stop-color="#05070A"/>
+        </linearGradient>
+      </defs>
+      <!-- Back wave layer -->
+      <path
+        d="M0,55 C180,95 360,15 540,55 C720,95 900,15 1080,55 C1260,95 1380,35 1440,55 L1440,110 L0,110 Z"
+        fill="rgba(127,214,255,0.04)"
+      />
+      <!-- Main wave -->
+      <path
+        d="M0,68 C200,28 380,100 600,68 C780,42 960,92 1140,62 C1280,40 1380,78 1440,68 L1440,110 L0,110 Z"
+        fill="url(#waveGrad)"
+      />
+    </svg>
+  </div>
+
+</section>
+
+<script>
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const heroRevealItems = document.querySelectorAll<HTMLElement>('[data-hero-reveal]');
+  let heroRevealFallback = 0;
+
+  const forceHeroReveal = () => {
+    if (heroRevealFallback) {
+      window.clearTimeout(heroRevealFallback);
+      heroRevealFallback = 0;
+    }
+
+    heroRevealItems.forEach((el) => {
+      el.classList.add('is-visible');
+      el.style.setProperty('--reveal-delay', '0s');
+      el.style.setProperty('transition-delay', '0s', 'important');
+      el.style.setProperty('transition', 'none', 'important');
+      el.style.setProperty('opacity', '1', 'important');
+      el.style.setProperty('transform', 'translate3d(0, 0, 0)', 'important');
+    });
+  };
+
+  // ── Entrance timeline ───────────────────────────────────────────────────
+  // ── Background parallax on scroll ──────────────────────────────────────
+  // ── Mouse parallax ──────────────────────────────────────────────────────
+  const section = document.getElementById('inicio');
+
+  if (prefersReduced) {
+    forceHeroReveal();
+  } else {
+    heroRevealFallback = window.setTimeout(forceHeroReveal, 1600);
+  }
+
+  if (!prefersReduced && section) {
+    const bg = document.querySelector<HTMLElement>('.hero-bg');
+    const word = document.querySelector<HTMLElement>('.hero-word');
+    const content = document.querySelector<HTMLElement>('.hero-content');
+    const orb1 = document.querySelector<HTMLElement>('.hero-orb-1');
+    const orb2 = document.querySelector<HTMLElement>('.hero-orb-2');
+    const finePointer = window.matchMedia('(pointer: fine) and (min-width: 768px)').matches;
+
+    let pointerX = 0;
+    let pointerY = 0;
+    let progress = 0;
+    let active = true;
+    let frame = 0;
+
+    const clamp = (value: number, min: number, max: number) =>
+      Math.min(Math.max(value, min), max);
+
+    const updateProgress = () => {
+      const rect = section.getBoundingClientRect();
+      progress = clamp(-rect.top / Math.max(rect.height, 1), 0, 1);
+    };
+
+    const applyMotion = () => {
+      frame = 0;
+      const height = section.offsetHeight || window.innerHeight;
+      const bgY = progress * height * 0.16;
+      const wordY = progress * height * 0.1;
+      const contentY = progress * height * 0.045;
+      const pointerBgX = finePointer ? pointerX * -8 : 0;
+      const pointerBgY = finePointer ? pointerY * -8 : 0;
+      const pointerWordX = finePointer ? pointerX * 14 : 0;
+      const pointerWordY = finePointer ? pointerY * 14 : 0;
+
+      if (bg) {
+        bg.style.transform = `translate3d(${pointerBgX.toFixed(1)}px, ${(bgY + pointerBgY).toFixed(1)}px, 0)`;
+      }
+      if (word) {
+        word.style.opacity = String(Math.max(0, 1 - progress * 1.35));
+        word.style.transform = `translate3d(${pointerWordX.toFixed(1)}px, ${(wordY + pointerWordY).toFixed(1)}px, 0)`;
+      }
+      if (content) {
+        content.style.transform = `translate3d(0, ${contentY.toFixed(1)}px, 0)`;
+      }
+      if (orb1 && finePointer) {
+        orb1.style.transform = `translate3d(${(pointerX * -18).toFixed(1)}px, ${(pointerY * -12).toFixed(1)}px, 0)`;
+      }
+      if (orb2 && finePointer) {
+        orb2.style.transform = `translate3d(${(pointerX * 12).toFixed(1)}px, ${(pointerY * 8).toFixed(1)}px, 0)`;
+      }
+    };
+
+    const requestMotion = () => {
+      if (frame || !active) return;
+      frame = window.requestAnimationFrame(applyMotion);
+    };
+
+    const onScroll = () => {
+      updateProgress();
+      requestMotion();
+    };
+
+    if (finePointer) {
+      section.addEventListener('pointermove', (event) => {
+        const rect = section.getBoundingClientRect();
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        pointerX = (event.clientX - rect.left - cx) / cx;
+        pointerY = (event.clientY - rect.top - cy) / cy;
+        requestMotion();
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          active = entry.isIntersecting;
+          [bg, word, content].forEach((el) => {
+            if (el) el.style.willChange = active ? 'transform' : '';
+          });
+          if (active) onScroll();
+        },
+        { threshold: 0, rootMargin: '8% 0px' },
+      );
+      observer.observe(section);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    onScroll();
+  }
+</script>
+
+<style>
+  @keyframes hero-scroll-line {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(250%); }
+  }
+
+  #scroll-line {
+    animation: hero-scroll-line 1.4s ease-in-out infinite;
+    animation-delay: 1.4s;
+  }
+
+  .hero-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 48px rgba(127,214,255,0.42);
+  }
+
+  .hero-btn-secondary:hover {
+    border-color: rgba(245,240,230,0.4);
+    background: rgba(245,240,230,0.1);
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #scroll-line {
+      animation: none;
+      transform: translateY(0);
+    }
+  }
+</style>

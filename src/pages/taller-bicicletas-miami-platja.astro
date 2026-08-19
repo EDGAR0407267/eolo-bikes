@@ -1,0 +1,443 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import CTASection from '@/components/CTASection.astro';
+import ContactSection from '@/components/ContactSection.astro';
+import Footer from '@/components/Footer.astro';
+import WhatsAppButton from '@/components/WhatsAppButton.astro';
+import { AREA_SERVED, SITE_URL, WHATSAPP_URL } from '@/lib/constants';
+import { Image } from 'astro:assets';
+import workshopImage from '@/assets/images/eolo-workshop.png';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Taller de bicicletas en Miami Platja',
+  description:
+    'Servicio de reparación, ajuste y mantenimiento de bicicletas en Miami Platja. Taller especializado EOLO Bikes en la Costa Daurada.',
+  url: `${SITE_URL}/taller-bicicletas-miami-platja/`,
+  provider: {
+    '@type': 'SportingGoodsStore',
+    '@id': `${SITE_URL}/#local-business`,
+    name: 'EOLO Bikes',
+  },
+  areaServed: AREA_SERVED.map((name) => ({ '@type': 'Place', name })),
+  serviceType: 'Reparación y mantenimiento de bicicletas',
+};
+
+const steps = [
+  { n: '01', title: 'Traes la bici', desc: 'Sin cita para urgencias menores. Para revisiones completas, escríbenos antes por WhatsApp.' },
+  { n: '02', title: 'Diagnóstico', desc: 'Revisamos cada sistema y te explicamos qué pasa. Sin tecnicismos ni sorpresas.' },
+  { n: '03', title: 'Presupuesto claro', desc: 'Sabes cuánto cuesta antes de empezar. Tú decides qué quieres hacer.' },
+  { n: '04', title: 'A rodar', desc: 'Recoge tu bici lista: ajustada, limpia y con garantía de trabajo realizado.' },
+];
+
+const services = [
+  {
+    title: 'Puesta a punto',
+    desc: 'Ajuste integral antes de cada temporada o ruta exigente. Tu bici lista para rendir al máximo.',
+    svg: `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>`,
+    colorClass: 'text-wind bg-wind/8 border-wind/20 hover:bg-wind/14 hover:border-wind/36',
+    dotClass: 'bg-wind/60',
+  },
+  {
+    title: 'Frenos y seguridad',
+    desc: 'Revisión y ajuste de frenos hidráulicos y mecánicos. Sin fallos cuando más los necesitas.',
+    svg: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>`,
+    colorClass: 'text-turquoise bg-turquoise/8 border-turquoise/20 hover:bg-turquoise/14 hover:border-turquoise/36',
+    dotClass: 'bg-turquoise/60',
+  },
+  {
+    title: 'Transmisión y cambios',
+    desc: 'Cables, platos, piñones, cadena. Cada marcha exactamente donde debe estar.',
+    svg: `<circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 0-14.14 0"/><path d="M4.93 19.07a10 10 0 0 0 14.14 0"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/>`,
+    colorClass: 'text-sand bg-sand/8 border-sand/20 hover:bg-sand/14 hover:border-sand/36',
+    dotClass: 'bg-sand/60',
+  },
+  {
+    title: 'Ruedas y rodamientos',
+    desc: 'Centrado, cubiertas tubeless y rodamientos. Sin vibraciones, máximo control en ruta.',
+    svg: `<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/>`,
+    colorClass: 'text-olive bg-olive/8 border-olive/20 hover:bg-olive/14 hover:border-olive/36',
+    dotClass: 'bg-olive/60',
+  },
+  {
+    title: 'Revisión completa',
+    desc: 'Diagnóstico total de todos los sistemas. Sabes qué necesita y qué puede esperar. Sin sorpresas.',
+    svg: `<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>`,
+    colorClass: 'text-wind bg-wind/8 border-wind/20 hover:bg-wind/14 hover:border-wind/36',
+    dotClass: 'bg-wind/60',
+  },
+  {
+    title: 'Bicicletas eléctricas',
+    desc: 'Motor, batería y sistemas eléctricos. Especialistas en e-bikes para que sigas rodando sin límites.',
+    svg: `<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>`,
+    colorClass: 'text-turquoise bg-turquoise/8 border-turquoise/20 hover:bg-turquoise/14 hover:border-turquoise/36',
+    dotClass: 'bg-turquoise/60',
+  },
+];
+
+const stats = [
+  { value: '15+', label: 'Años de experiencia' },
+  { value: '500+', label: 'Bicis revisadas' },
+  { value: '1 día', label: 'Plazo medio de entrega' },
+];
+---
+
+<Layout
+  title="Taller de bicicletas en Miami Platja | Reparación y mantenimiento - EOLO Bikes"
+  description="Taller de bicicletas en Miami Platja. Reparación, mantenimiento, ajustes, revisiones y puesta a punto para bicicletas de carretera, gravel, MTB y urbanas."
+  ogTitle="Taller de bicicletas Miami Platja — EOLO Bikes"
+  ogDescription="Reparación, mantenimiento y puesta a punto de bicicletas en Miami Platja. Taller especializado para carretera, gravel, MTB y urbanas."
+  schema={serviceSchema}
+>
+  <Header />
+
+  <main>
+
+    <!-- ══════════════════════════════════════════
+         1. HERO — Imagen real + editorial
+    ══════════════════════════════════════════ -->
+    <section class="relative isolate overflow-hidden" style="min-height: 84vh;">
+
+      <!-- Background: workshop image -->
+      <div class="absolute -inset-4 z-0 overflow-hidden" aria-hidden="true">
+        <Image
+          src={workshopImage}
+          alt=""
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          draggable="false"
+          widths={[640, 960, 1280, 1774]}
+          sizes="100vw"
+          class="h-full w-full object-cover object-center pointer-events-none select-none"
+          style="transform: scale(1.04); transform-origin: center 40%;"
+        />
+        <!-- Cinematic overlay: strong left, fade right -->
+        <div
+          class="absolute inset-0"
+          style="background: linear-gradient(108deg, rgba(5,7,10,0.94) 0%, rgba(7,16,24,0.80) 38%, rgba(7,16,24,0.50) 68%, rgba(5,7,10,0.72) 100%);"
+        ></div>
+        <!-- Bottom dark pool for wave transition -->
+        <div
+          class="absolute inset-x-0 bottom-0 h-56"
+          style="background: linear-gradient(to top, #05070A 0%, transparent 100%);"
+        ></div>
+      </div>
+
+      <!-- Editorial word: FIX -->
+      <div class="subpage-hero-word pointer-events-none absolute inset-0 z-[2] flex items-center overflow-hidden" aria-hidden="true">
+        <span
+          data-reveal
+          data-reveal-delay="0.08"
+          data-reveal-y="0"
+          class="select-none font-display font-black uppercase leading-none"
+          style="font-size: clamp(20vw, 26vw, 360px); color: transparent; -webkit-text-stroke: 1px rgba(127,214,255,0.10); letter-spacing: -0.04em;"
+        >FIX</span>
+      </div>
+
+      <!-- Ambient orb -->
+      <div class="pointer-events-none absolute inset-0 z-[3]" aria-hidden="true">
+        <div
+          class="absolute rounded-full"
+          style="width: 440px; height: 440px; top: -80px; right: 5%; background: radial-gradient(circle, rgba(127,214,255,0.09) 0%, transparent 70%); filter: blur(1px);"
+        ></div>
+      </div>
+
+      <!-- Main content -->
+      <div
+        class="relative z-10 mx-auto flex flex-col justify-center px-5 pt-28 pb-28 sm:px-8 sm:pt-36 sm:pb-32 lg:pt-44 lg:pb-36"
+        style="max-width: 1200px; min-height: 84vh;"
+      >
+        <!-- Badge -->
+        <div
+          data-reveal
+          data-reveal-delay="0.25"
+          data-reveal-y="16"
+          class="mb-6 inline-flex w-fit items-center gap-2 rounded-full border px-4 py-1.5"
+          style="border-color: rgba(127,214,255,0.25); background: rgba(127,214,255,0.08); backdrop-filter: blur(12px);"
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7FD6FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+          <span class="text-xs font-semibold uppercase tracking-widest text-wind">Taller profesional · Miami Platja</span>
+        </div>
+
+        <!-- Headline -->
+        <h1
+          data-hero-title
+          class="font-display font-black uppercase leading-[0.88] tracking-tight text-cream"
+          style="font-size: clamp(1.9rem, 5.2vw, 5.0rem); max-width: 13ch;"
+        >
+          Tu bici no<br />{' '}necesita suerte.<br />{' '}
+          <span
+            class="hero-accent-mark font-accent"
+            style="color: transparent; -webkit-text-stroke: 1.2px #7FD6FF; background: linear-gradient(90deg, #7FD6FF, #a8edff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
+          >Necesita<br />{' '}un buen mecánico.</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p
+          data-hero-subtitle
+          class="mt-6 max-w-lg leading-relaxed sm:mt-7"
+          style="color: rgba(201,208,214,0.72); font-size: clamp(0.9rem, 1.45vw, 1.1rem);"
+        >
+          Diagnóstico real. Materiales de calidad. Plazo cumplido.<br class="hidden sm:block"/>
+          Tu bicicleta de vuelta en forma para la próxima ruta.
+        </p>
+
+        <!-- CTAs -->
+        <div
+          data-hero-buttons
+          class="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4"
+        >
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Reservar revisión en el taller por WhatsApp"
+            class="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full px-8 text-sm font-bold text-carbon transition-all duration-300 hover:-translate-y-0.5"
+            style="background: linear-gradient(90deg, #7FD6FF 0%, #a8edff 100%); box-shadow: 0 0 32px rgba(127,214,255,0.28);"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+            Reservar revisión
+          </a>
+          <a
+            href="#proceso"
+            class="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full border px-8 text-sm font-semibold text-cream backdrop-blur-sm transition-all duration-300 hover:border-cream/40 hover:bg-cream/10"
+            style="border-color: rgba(245,240,230,0.2); background: rgba(245,240,230,0.05);"
+          >
+            Cómo trabajamos
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Wave transition: Hero → Process -->
+      <div class="absolute inset-x-0 bottom-0 z-20 leading-[0]" aria-hidden="true">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(48px, 6vw, 80px);">
+          <path d="M0,40 C360,80 720,0 1080,50 C1260,75 1380,30 1440,44 L1440,80 L0,80 Z" fill="rgba(127,214,255,0.04)"/>
+          <path d="M0,56 C200,24 450,70 720,42 C960,14 1200,62 1440,36 L1440,80 L0,80 Z" fill="#05070A"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         2. PROCESO — 4 pasos
+    ══════════════════════════════════════════ -->
+    <section id="proceso" class="relative scroll-mt-20 overflow-hidden py-16 sm:py-24 lg:py-32 pb-24 sm:pb-32 lg:pb-40">
+      <div class="section-shell">
+
+        <div class="mx-auto max-w-2xl text-center" data-reveal>
+          <p class="mb-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-wind">Proceso de trabajo</p>
+          <h2 class="text-balance text-2xl font-semibold leading-tight text-cream sm:text-3xl lg:text-4xl">
+            Vienes con una idea.<br />{' '}Sales con una bici lista para rodar.
+          </h2>
+        </div>
+
+        <!-- Steps grid -->
+        <div class="relative mt-14 sm:mt-16 lg:mt-20">
+          <!-- Connecting line (desktop only) -->
+          <div
+            class="pointer-events-none absolute top-10 left-[calc(12.5%+28px)] right-[calc(12.5%+28px)] hidden h-px lg:block"
+            style="background: linear-gradient(to right, transparent, rgba(127,214,255,0.25) 20%, rgba(127,214,255,0.12) 50%, rgba(127,214,255,0.25) 80%, transparent);"
+            aria-hidden="true"
+          ></div>
+
+          <div data-stagger class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
+            {steps.map((step, i) => (
+              <div
+                data-stagger-item
+                class="relative flex flex-col gap-5 rounded-[1.75rem] border border-cream/[0.07] bg-cream/[0.04] p-7 transition-all duration-300 hover:border-wind/22 hover:bg-cream/[0.07] lg:rounded-none lg:border-0 lg:bg-transparent lg:px-8 lg:items-center lg:text-center lg:hover:bg-transparent"
+              >
+                <!-- Step number circle -->
+                <div
+                  class="flex size-14 shrink-0 items-center justify-center rounded-full border-2 font-display font-black text-lg text-wind transition-all duration-300"
+                  style="border-color: rgba(127,214,255,0.3); background: rgba(127,214,255,0.08);"
+                >
+                  {step.n}
+                </div>
+                <div>
+                  <h3 class="text-base font-semibold text-cream sm:text-lg">{step.title}</h3>
+                  <p class="mt-2 text-sm leading-6 text-mist/65">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Wave: Process → Services -->
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10 leading-[0]" aria-hidden="true">
+        <svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(38px, 5vw, 64px);">
+          <path d="M0,32 L1440,0 L0,0 Z" fill="rgba(127,214,255,0.03)"/>
+          <path d="M0,32 L1440,0 L1440,64 Z" fill="#071018"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         3. SERVICIOS — 6 tarjetas
+    ══════════════════════════════════════════ -->
+    <section id="servicios-taller" class="relative scroll-mt-20 overflow-hidden bg-[#071018] py-14 sm:py-24 lg:py-32 pb-24 sm:pb-32 lg:pb-40">
+      <div class="absolute inset-0 bg-soft-grid bg-[size:72px_72px] opacity-[0.10]" aria-hidden="true"></div>
+
+      <!-- Ambient glow -->
+      <div class="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] rounded-full opacity-40" style="background: radial-gradient(circle, rgba(127,214,255,0.06), transparent 70%);" aria-hidden="true"></div>
+
+      <div class="section-shell relative z-10">
+
+        <div class="mx-auto max-w-2xl" data-reveal>
+          <p class="mb-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-wind">Servicios</p>
+          <h2 class="text-balance text-2xl font-semibold leading-tight text-cream sm:text-3xl lg:text-4xl">
+            Reparamos lo que otros no llegan a ver.
+          </h2>
+          <p class="mt-4 text-base leading-7 text-mist/65">
+            Cada revisión empieza desde cero. Sin atajos, sin asumir. Primero entendemos, después actuamos.
+          </p>
+        </div>
+
+        <div data-stagger class="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((service) => (
+            <article
+              data-stagger-item
+              class:list={[
+                'group flex flex-col gap-5 rounded-[1.75rem] border p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift',
+                service.colorClass,
+              ]}
+              style="border-color: rgba(245,240,230,0.09); background: rgba(245,240,230,0.045);"
+            >
+              <span
+                class:list={['grid size-12 place-items-center rounded-full border transition-all duration-300', service.colorClass]}
+              >
+                <svg
+                  class="size-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  set:html={service.svg}
+                />
+              </span>
+              <div>
+                <h3 class="text-lg font-semibold text-cream">{service.title}</h3>
+                <p class="mt-3 text-sm leading-7 text-mist/70">{service.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="mt-12 flex justify-center" data-reveal>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Consultar sobre servicios de taller por WhatsApp"
+            class="inline-flex min-h-[52px] items-center gap-2.5 rounded-full border border-wind/30 bg-wind/10 px-8 text-sm font-semibold text-cream transition-all duration-300 hover:-translate-y-0.5 hover:border-wind/55 hover:bg-wind/18"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-wind" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>
+            </svg>
+            Consultar por WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Wave: Services → Stats -->
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10 leading-[0]" aria-hidden="true">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(36px, 4.5vw, 60px);">
+          <path d="M0,30 C240,60 480,0 720,36 C960,72 1200,12 1440,40 L1440,60 L0,60 Z" fill="rgba(127,214,255,0.03)"/>
+          <path d="M0,44 C180,18 380,56 620,28 C860,0 1100,52 1340,22 L1440,16 L1440,60 L0,60 Z" fill="#05070A"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         4. STATS + CONFIANZA
+    ══════════════════════════════════════════ -->
+    <section class="relative overflow-hidden py-16 sm:py-24 lg:py-32 pb-24 sm:pb-32 lg:pb-40">
+      <!-- Ambient -->
+      <div class="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30" style="background: radial-gradient(circle, rgba(127,214,255,0.05), transparent 70%);" aria-hidden="true"></div>
+
+      <div class="section-shell relative z-10">
+
+        <!-- Stats -->
+        <div data-stagger class="grid gap-6 sm:grid-cols-3">
+          {stats.map((stat) => (
+            <div data-stagger-item class="text-center">
+              <p
+                class="font-display font-black text-cream"
+                style="font-size: clamp(2.6rem, 5.5vw, 4.4rem); line-height: 1; letter-spacing: -0.03em;"
+              >{stat.value}</p>
+              <p class="mt-3 text-xs font-semibold uppercase tracking-[0.22em] text-mist/50">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Divider -->
+        <div class="my-14 h-px w-full bg-gradient-to-r from-transparent via-cream/10 to-transparent" aria-hidden="true"></div>
+
+        <!-- Quote + trust copy -->
+        <div class="grid gap-10 lg:grid-cols-2 lg:gap-16 lg:items-center">
+          <div data-reveal>
+            <p
+              class="font-display font-black uppercase leading-[0.9] text-cream"
+              style="font-size: clamp(1.6rem, 3.5vw, 3rem); letter-spacing: -0.02em;"
+            >
+              "Traes una bici rota.<br />{' '}
+              <span style="color: transparent; -webkit-text-stroke: 1px rgba(127,214,255,0.5); background: linear-gradient(90deg, #7FD6FF, #a8edff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Sales listo para la próxima ruta."</span>
+            </p>
+            <p class="mt-2 text-xs tracking-widest uppercase" style="color: rgba(127,214,255,0.5);">EOLO Bikes · Miami Platja</p>
+          </div>
+
+          <div data-stagger class="grid gap-4 sm:grid-cols-2">
+            {[
+              { title: 'Diagnóstico incluido', desc: 'Revisamos y te contamos qué pasa antes de cobrar nada.' },
+              { title: 'Sin sorpresas en factura', desc: 'Presupuesto previo en todos los trabajos. Tú decides.' },
+              { title: 'Materiales de calidad', desc: 'Solo componentes y lubricantes de marcas de confianza.' },
+              { title: 'Plazo cumplido', desc: 'Te decimos cuándo estará y lo cumplimos. Siempre.' },
+            ].map((item) => (
+              <div
+                data-stagger-item
+                class="rounded-2xl border border-cream/[0.07] bg-cream/[0.04] p-5 transition-all duration-300 hover:border-wind/22 hover:bg-cream/[0.07]"
+              >
+                <p class="text-sm font-semibold text-cream">{item.title}</p>
+                <p class="mt-2 text-xs leading-6 text-mist/60">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Wave: Stats → CTA -->
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10 leading-[0]" aria-hidden="true">
+        <svg viewBox="0 0 1440 52" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(30px, 4vw, 52px);">
+          <path d="M0,52 L1440,0 L0,0 Z" fill="rgba(127,214,255,0.03)"/>
+          <path d="M0,52 L1440,0 L1440,52 Z" fill="#071018"/>
+        </svg>
+      </div>
+    </section>
+
+    <CTASection />
+    <ContactSection />
+  </main>
+
+  <Footer />
+  <WhatsAppButton />
+</Layout>
+
+<style>
+  .font-accent {
+    font-family: "Playfair Display", Georgia, serif;
+  }
+</style>

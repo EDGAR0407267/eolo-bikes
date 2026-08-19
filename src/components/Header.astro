@@ -1,0 +1,269 @@
+---
+import { NAV_LINKS, WHATSAPP_URL, INSTAGRAM_URL } from '@/lib/constants';
+---
+
+<header
+  data-site-header
+  class="site-header fixed inset-x-0 top-0 z-40 bg-transparent transition-all duration-500"
+>
+  <nav class="mx-auto flex h-20 w-[min(calc(100%-1.5rem),1180px)] items-center justify-between">
+    <a
+      href="/"
+      class="group flex items-center"
+      aria-label="EOLO Bikes - ir al inicio"
+    >
+      <img
+        src="/images/eolo-logo.svg"
+        alt="EOLO Bikes"
+        width="202"
+        height="56"
+        class="h-14 w-auto transition-opacity duration-300 group-hover:opacity-80"
+      />
+    </a>
+
+    <div class="hidden items-center gap-8 lg:flex">
+      {NAV_LINKS.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm font-medium text-cream/68 transition-colors hover:text-cream"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <div class="hidden items-center gap-3 lg:flex">
+      <a
+        href={INSTAGRAM_URL}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Ver Instagram de EOLO Bikes"
+        class="inline-flex min-h-11 items-center gap-2 rounded-full border border-pink-500/30 bg-pink-500/10 px-5 text-sm font-semibold text-cream transition-all duration-300 hover:-translate-y-0.5 hover:border-pink-500/60 hover:bg-pink-500/16"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+        </svg>
+        @eolobikes
+      </a>
+    </div>
+
+    <button
+      type="button"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-toggle
+      class="grid size-11 place-items-center rounded-full border border-cream/12 bg-cream/8 text-cream transition-colors hover:bg-cream/14 lg:hidden"
+    >
+      <svg data-menu-icon-open xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 12h16"/><path d="M4 6h16"/><path d="M4 18h16"/>
+      </svg>
+      <svg data-menu-icon-close xmlns="http://www.w3.org/2000/svg" class="hidden size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+      </svg>
+    </button>
+  </nav>
+
+  <div
+    id="mobile-menu"
+    role="navigation"
+    aria-label="Menú de navegación móvil"
+    data-mobile-menu
+    hidden
+    inert
+    aria-hidden="true"
+    class="mobile-menu pointer-events-none mx-auto mb-4 max-h-0 w-[min(calc(100%-1.5rem),1180px)] overflow-hidden rounded-3xl border border-cream/12 bg-carbon/92 opacity-0 shadow-lift transition-all duration-300 lg:hidden"
+  >
+    <div class="grid gap-1 p-4">
+      {NAV_LINKS.map((link) => (
+        <a
+          href={link.href}
+          data-mobile-link
+          class="rounded-2xl px-4 py-3 text-sm font-semibold text-cream/78 transition-colors hover:bg-cream/8 hover:text-cream"
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href={INSTAGRAM_URL}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Ver Instagram de EOLO Bikes"
+        data-mobile-link
+        class="mt-2 inline-flex items-center justify-center gap-2 rounded-2xl bg-cream px-4 py-3 text-sm font-bold text-carbon"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+        </svg>
+        @eolobikes
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+  const openIcon = document.querySelector<HTMLElement>('[data-menu-icon-open]');
+  const closeIcon = document.querySelector<HTMLElement>('[data-menu-icon-close]');
+  const links = document.querySelectorAll<HTMLElement>('[data-mobile-link]');
+
+  let scrolled = false;
+  let frame = 0;
+  let menuOpen = false;
+  let menuCloseTimer = 0;
+
+  const setMenuHeight = () => {
+    if (!menu || !menuOpen) return;
+    menu.style.setProperty('max-height', `${menu.scrollHeight}px`, 'important');
+  };
+
+  const setMenuOpen = (open: boolean) => {
+    if (!toggle || !menu || !openIcon || !closeIcon) return;
+    menuOpen = open;
+
+    if (menuCloseTimer) {
+      window.clearTimeout(menuCloseTimer);
+      menuCloseTimer = 0;
+    }
+
+    if (open) {
+      menu.hidden = false;
+      menu.removeAttribute('inert');
+      menu.setAttribute('aria-hidden', 'false');
+      menu.style.setProperty('max-height', '0px', 'important');
+    }
+
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    menu.classList.toggle('is-open', open);
+    menu.classList.toggle('max-h-0', !open);
+    menu.classList.toggle('max-h-[400px]', open);
+    menu.classList.toggle('opacity-0', !open);
+    menu.classList.toggle('opacity-100', open);
+    menu.classList.toggle('pointer-events-none', !open);
+    menu.classList.toggle('pointer-events-auto', open);
+    menu.style.setProperty('opacity', open ? '1' : '0', 'important');
+    menu.style.setProperty('pointer-events', open ? 'auto' : 'none', 'important');
+    openIcon.classList.toggle('hidden', open);
+    closeIcon.classList.toggle('hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+
+    if (open) {
+      setMenuHeight();
+      window.requestAnimationFrame(setMenuHeight);
+      return;
+    }
+
+    menu.setAttribute('aria-hidden', 'true');
+    menu.setAttribute('inert', '');
+    menu.style.setProperty('max-height', '0px', 'important');
+    menuCloseTimer = window.setTimeout(() => {
+      if (!menuOpen) {
+        menu.hidden = true;
+      }
+    }, 320);
+  };
+
+  const updateHeader = () => {
+    frame = 0;
+    const nextScrolled = window.scrollY > 20;
+    if (nextScrolled === scrolled) return;
+    scrolled = nextScrolled;
+    header?.classList.toggle('is-scrolled', scrolled);
+  };
+
+  const requestHeaderUpdate = () => {
+    if (frame) return;
+    frame = window.requestAnimationFrame(updateHeader);
+  };
+
+  const handleResize = () => {
+    if (menuOpen && window.matchMedia('(min-width: 1024px)').matches) {
+      setMenuOpen(false);
+      return;
+    }
+    setMenuHeight();
+  };
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    setMenuOpen(!isOpen);
+  });
+
+  links.forEach((link) => {
+    link.addEventListener('click', () => setMenuOpen(false));
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      setMenuOpen(false);
+    }
+  });
+
+  window.addEventListener('scroll', requestHeaderUpdate, { passive: true });
+  window.addEventListener('resize', handleResize, { passive: true });
+  updateHeader();
+</script>
+
+<style>
+  .site-header.is-scrolled {
+    background: rgba(5, 7, 10, 0.86);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+
+  .site-header::before {
+    position: absolute;
+    inset-inline: 0;
+    top: calc(env(safe-area-inset-top, 0px) * -1);
+    height: env(safe-area-inset-top, 0px);
+    content: '';
+    pointer-events: none;
+    background: #05070a;
+  }
+
+  .site-header.is-scrolled::before {
+    background: rgba(5, 7, 10, 0.94);
+  }
+
+  .mobile-menu {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  /*
+   * On mobile, lean on a more opaque background and a smaller blur radius. The
+   * fixed header re-blurs the content scrolling behind it every frame, so a
+   * lighter blur here is the cheapest win on the device class that matters most
+   * — the look stays the same because the background is already highly opaque.
+   */
+  @media (max-width: 767px) {
+    .site-header.is-scrolled {
+      background: rgba(5, 7, 10, 0.94);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
+
+    .mobile-menu {
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+    }
+  }
+
+  @supports not (backdrop-filter: blur(1px)) {
+    .site-header.is-scrolled,
+    .mobile-menu {
+      background: rgba(5, 7, 10, 0.94);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-header,
+    .mobile-menu {
+      transition: none;
+    }
+  }
+</style>

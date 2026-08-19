@@ -1,0 +1,181 @@
+---
+import { Image } from 'astro:assets';
+import manifestoBikeBg from '@/assets/images/manifesto-bike-bg.png';
+import { WHATSAPP_URL } from '@/lib/constants';
+---
+
+<section class="manifesto-section relative overflow-hidden" style="min-height: 90vh;">
+  <div class="flex flex-col lg:flex-row" style="min-height: 90vh;">
+
+    <!-- ── Left: Text panel ─────────────────────────────────────────────── -->
+    <div
+      class="relative z-10 flex flex-col justify-center py-14 px-6 sm:py-20 sm:px-8 lg:w-[52%] lg:px-16 xl:px-24"
+      style="background: #05070A;"
+    >
+      <!-- Ambient orb -->
+      <div
+        class="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full"
+        style="background: radial-gradient(circle, rgba(127,214,255,0.07), transparent 70%);"
+        aria-hidden="true"
+      ></div>
+
+      <p
+        id="mf-eyebrow"
+        data-reveal
+        data-reveal-delay="0"
+        data-reveal-y="14"
+        class="mb-7 text-[11px] tracking-[0.32em] uppercase text-wind"
+        style="opacity: 0;"
+      >Nuestro propósito</p>
+
+      <h2
+        id="mf-title"
+        data-reveal
+        data-reveal-delay="0.15"
+        data-reveal-y="48"
+        class="font-display font-black uppercase leading-[0.88] text-cream"
+        style="font-size: clamp(3rem, 5.2vw, 5.2rem); letter-spacing: -0.03em; max-width: 14ch; opacity: 0;"
+      >
+        No vendemos<br />{' '}bicicletas.<br />{' '}
+        <span
+          class="font-accent"
+          style="
+            color: transparent;
+            -webkit-text-stroke: 1.5px #7FD6FF;
+            background: linear-gradient(90deg, #7FD6FF, #a8edff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          "
+        >Vendemos<br />{' '}libertad.</span>
+      </h2>
+
+      <p
+        id="mf-body"
+        data-reveal
+        data-reveal-delay="0.42"
+        data-reveal-y="24"
+        class="mt-8 max-w-md text-base leading-8"
+        style="color: rgba(201,208,214,0.68); opacity: 0;"
+      >
+        Cada bicicleta que preparamos lleva consigo horas de ajuste, kilómetros de
+        experiencia y la misma pasión que sentimos cuando salimos a rodar por la
+        Costa Daurada. Eso es lo que encontrarás en EOLO.
+      </p>
+
+      <!-- Stats row -->
+      <div
+        id="mf-stats"
+        data-reveal
+        data-reveal-delay="0.58"
+        data-reveal-y="22"
+        class="mt-8 flex flex-wrap gap-x-8 gap-y-5 border-t pt-7 sm:mt-10 sm:gap-y-0 sm:pt-8"
+        style="border-color: rgba(245,240,230,0.08); opacity: 0;"
+      >
+        {[
+          { number: '15+', label: 'Años de pasión' },
+          { number: '500+', label: 'Bicis preparadas' },
+          { number: '∞', label: 'Kilómetros posibles' },
+        ].map((s) => (
+          <div>
+            <p class="font-display font-black text-cream" style="font-size: 1.8rem; line-height: 1; letter-spacing: -0.03em;">{s.number}</p>
+            <p class="mt-1 text-[11px] uppercase tracking-widest" style="color: rgba(201,208,214,0.45);">{s.label}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTAs -->
+      <div
+        id="mf-ctas"
+        data-reveal
+        data-reveal-delay="0.72"
+        data-reveal-y="22"
+        class="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4"
+        style="opacity: 0;"
+      >
+        <a
+          href="/venta-bicicletas-miami-platja"
+          class="group inline-flex min-h-[52px] items-center gap-2 rounded-full px-8 text-sm font-bold text-carbon transition-all duration-300 hover:-translate-y-0.5"
+          style="background: linear-gradient(90deg, #7FD6FF, #a8edff); box-shadow: 0 0 28px rgba(127,214,255,0.22);"
+        >
+          Ver bicicletas
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">
+            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+          </svg>
+        </a>
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex min-h-[52px] items-center gap-2 rounded-full border px-8 text-sm font-semibold text-cream transition-all duration-300 hover:-translate-y-0.5"
+          style="border-color: rgba(245,240,230,0.18); background: rgba(245,240,230,0.05);"
+        >
+          Hablar con nosotros
+        </a>
+      </div>
+    </div>
+
+    <!-- ── Right: Image with diagonal clip ──────────────────────────────── -->
+    <div class="manifesto-img-panel relative min-h-[45vh] sm:min-h-[50vh] lg:min-h-0 lg:flex-1 overflow-hidden">
+      <Image
+        data-parallax
+        data-parallax-strength="58"
+        data-parallax-scale="1.06"
+        src={manifestoBikeBg}
+        alt="Ciclista en carretera de montaña"
+        loading="lazy"
+        decoding="async"
+        fetchpriority="low"
+        widths={[960, 1280, 1680]}
+        sizes="(min-width: 1024px) 48vw, 100vw"
+        quality={86}
+        class="manifesto-img h-full w-full object-cover"
+        style="transform: scale(1.06); transform-origin: center; object-position: 52% center;"
+      />
+      <!-- Left-side fade so it merges with text panel -->
+      <div
+        class="absolute inset-0"
+        style="background: linear-gradient(to right, rgba(5,7,10,0.78) 0%, rgba(5,7,10,0.18) 38%, transparent 100%), linear-gradient(to top, rgba(5,7,10,0.52) 0%, transparent 42%);"
+        aria-hidden="true"
+      ></div>
+
+      <!-- Floating quote on image -->
+      <div
+        id="mf-quote"
+        data-reveal
+        data-reveal-delay="0.5"
+        data-reveal-y="28"
+        class="absolute bottom-10 left-8 right-8 z-10 lg:left-12 lg:right-12"
+        style="opacity: 0;"
+      >
+        <p
+          class="font-display font-black uppercase text-cream"
+          style="font-size: clamp(2rem, 3.5vw, 3.2rem); line-height: 0.9; letter-spacing: -0.02em; opacity: 0.88;"
+        >
+          "Cada pedalada<br />{' '}tiene sentido."
+        </p>
+        <span class="mt-3 block text-xs tracking-widest uppercase" style="color: rgba(127,214,255,0.6);">EOLO Bikes · Miami Platja</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Gradient fade + diagonal accent: Manifesto → Workshop -->
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 z-20 leading-[0]" aria-hidden="true">
+    <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(34px, 4.5vw, 56px);">
+      <!-- Wind accent band along diagonal -->
+      <path d="M0,-2 L1440,56 L1440,53 L0,1 Z" fill="rgba(127,214,255,0.07)"/>
+      <!-- Workshop bg rises from bottom-left (opposite of editorial) -->
+      <path d="M0,3 L1440,56 L0,56 Z" fill="#071018"/>
+    </svg>
+  </div>
+</section>
+
+<style>
+  /* Diagonal clip on desktop only */
+  @media (min-width: 1024px) {
+    .manifesto-img-panel {
+      clip-path: polygon(7% 0, 100% 0, 100% 100%, 0% 100%);
+    }
+  }
+</style>

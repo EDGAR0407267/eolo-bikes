@@ -1,0 +1,40 @@
+---
+interface Props {
+  title: string;
+  text?: string;
+  align?: 'left' | 'center';
+  light?: boolean;
+  class?: string;
+}
+
+const { title, text, align = 'left', light = false, class: className = '' } = Astro.props;
+const isCenter = align === 'center';
+---
+
+<div
+  data-section-title
+  class:list={[
+    'max-w-3xl',
+    isCenter && 'mx-auto text-center',
+    className,
+  ]}
+>
+  <h2
+    class:list={[
+      'text-balance text-3xl font-semibold leading-[1.08] sm:text-4xl lg:text-5xl',
+      light ? 'text-carbon' : 'text-cream',
+    ]}
+  >
+    {title}
+  </h2>
+  {text && (
+    <p
+      class:list={[
+        'mt-4 text-base leading-7 sm:mt-5 sm:text-lg sm:leading-8',
+        light ? 'text-carbon/64' : 'text-mist/78',
+      ]}
+    >
+      {text}
+    </p>
+  )}
+</div>

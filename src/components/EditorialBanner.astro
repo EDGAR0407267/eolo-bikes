@@ -1,0 +1,162 @@
+---
+import { Image } from 'astro:assets';
+import editorialBg from '@/assets/images/editorial-banner.jpg';
+---
+
+<section
+  class="editorial-banner relative overflow-hidden"
+  style="height: 80vh; min-height: 520px;"
+>
+  <!-- Background image with parallax wrapper -->
+  <div
+    class="editorial-bg absolute -inset-4 overflow-hidden"
+    data-parallax
+    data-parallax-strength="72"
+    data-parallax-scale="1.06"
+    aria-hidden="true"
+  >
+    <Image
+      src={editorialBg}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      fetchpriority="low"
+      draggable="false"
+      widths={[768, 1280, 1600, 1920]}
+      sizes="100vw"
+      quality={82}
+      class="h-full w-full object-cover pointer-events-none select-none"
+      style="transform: scale(1.08); transform-origin: center 40%;"
+    />
+    <!-- Strong left overlay for text readability, fade to transparent right -->
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(100deg, rgba(5,7,10,0.90) 0%, rgba(5,7,10,0.60) 45%, rgba(5,7,10,0.30) 100%);"
+    ></div>
+    <!-- Top dark pool: depth blend from PresentationSection -->
+    <div
+      class="absolute inset-x-0 top-0 h-32 sm:h-44"
+      style="background: linear-gradient(to bottom, #05070A 0%, transparent 100%);"
+      aria-hidden="true"
+    ></div>
+    <!-- Bottom dark pool -->
+    <div
+      class="absolute inset-x-0 bottom-0 h-40"
+      style="background: linear-gradient(to top, #05070A, transparent);"
+    ></div>
+  </div>
+
+  <!-- Ghost word — right side, behind everything -->
+  <div
+    class="pointer-events-none absolute inset-0 z-[2] flex items-center justify-end overflow-hidden"
+    aria-hidden="true"
+  >
+    <span
+      id="eb-word"
+      data-reveal
+      data-reveal-delay="0.1"
+      data-reveal-y="0"
+      class="font-display font-black uppercase select-none"
+      style="
+        font-size: clamp(20vw, 26vw, 360px);
+        line-height: 1;
+        letter-spacing: -0.05em;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(127,214,255,0.08);
+        padding-right: 0.02em;
+        opacity: 0;
+        transform: translateX(4%);
+      "
+    >EOLO</span>
+  </div>
+
+  <!-- Top left tag -->
+  <div
+    id="eb-tag"
+    data-reveal
+    data-reveal-delay="0"
+    data-reveal-y="12"
+    class="absolute top-6 left-6 z-10 flex items-center gap-3 sm:top-8 sm:left-8"
+    style="opacity: 0;"
+  >
+    <span class="h-px w-6 bg-wind/50" aria-hidden="true"></span>
+    <span class="text-[10px] tracking-[0.3em] uppercase text-cream/45">Miami Platja · Costa Daurada</span>
+  </div>
+
+  <!-- Main text — left side -->
+  <div class="absolute inset-0 z-10 flex items-center">
+    <div class="w-full max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-12">
+
+      <p
+        id="eb-eyebrow"
+        data-reveal
+        data-reveal-delay="0.2"
+        data-reveal-y="14"
+        class="mb-5 text-[11px] tracking-[0.32em] uppercase text-wind"
+        style="opacity: 0;"
+      >Desde la Costa Daurada</p>
+
+      <h2
+        id="eb-title"
+        data-reveal
+        data-reveal-delay="0.35"
+        data-reveal-y="52"
+        class="font-display font-black uppercase text-cream"
+        style="
+          font-size: clamp(3rem, 8.5vw, 7.8rem);
+          line-height: 0.88;
+          letter-spacing: -0.03em;
+          max-width: 12ch;
+          opacity: 0;
+        "
+      >
+        La libertad<br />
+        tiene forma<br />
+        <em
+          class="not-italic font-accent"
+          style="
+            color: transparent;
+            -webkit-text-stroke: 1.5px #7FD6FF;
+            background: linear-gradient(90deg, #7FD6FF, #a8edff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          "
+        >de bici.</em>
+      </h2>
+
+      <p
+        id="eb-sub"
+        data-reveal
+        data-reveal-delay="0.62"
+        data-reveal-y="18"
+        class="mt-8 max-w-xs text-sm leading-7"
+        style="color: rgba(201,208,214,0.60); opacity: 0;"
+      >
+        Cada kilómetro que ruedas es tuyo.<br />
+        Nosotros ponemos la mejor herramienta.
+      </p>
+
+    </div>
+  </div>
+
+  <!-- Bottom right stat -->
+  <div
+    id="eb-stat"
+    class="absolute bottom-20 right-6 z-30 rounded-lg border border-cream/10 bg-carbon/42 px-4 py-3 text-right shadow-lift backdrop-blur-sm sm:right-8 lg:bottom-24 lg:right-12"
+  >
+    <p class="text-[10px] tracking-widest uppercase" style="color: rgba(201,208,214,0.62);">Punto ciclista</p>
+    <p class="mt-1 text-xl font-display font-black uppercase tracking-tight text-cream/90">Costa Daurada</p>
+  </div>
+
+  <!-- Dual-layer diagonal: Editorial → Services -->
+  <div class="absolute inset-x-0 bottom-0 z-20 leading-[0]" aria-hidden="true">
+    <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(44px, 5.5vw, 72px);">
+      <!-- Accent layer: wind-tinted diagonal ghost -->
+      <path d="M0,72 L1440,8 L1440,72 Z" fill="rgba(127,214,255,0.05)"/>
+      <!-- Main diagonal cut -->
+      <path d="M0,72 L1440,16 L1440,72 Z" fill="#05070A"/>
+    </svg>
+  </div>
+
+</section>

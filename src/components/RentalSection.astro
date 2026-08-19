@@ -1,0 +1,132 @@
+---
+import SectionTitle from './SectionTitle.astro';
+import { RENTAL_ITEMS, WHATSAPP_URL } from '@/lib/constants';
+import { Image } from 'astro:assets';
+import rentalImage from '@/assets/images/eolo-rental.png';
+
+const iconPaths: Record<string, string> = {
+  Clock: 'M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z',
+  Compass: 'M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm-1.5-5.5 5-8.66-8.66 5 3.66 3.66z',
+  Route: 'M3 11l19-9-9 19-2-8-8-2z',
+  ShieldCheck: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4',
+  Map: 'M14.5 2.1L9 4 3 2v18l6 2 6-2 6 2V4l-6.5-1.9zM9 4v16M15 2v16',
+};
+
+// Avance de tarifas — "desde" = precio/día más bajo (alquiler de 7 días).
+// La tabla completa vive en /alquiler-bicicletas-miami-platja/.
+const priceTeaser = [
+  { name: 'City Bike / BTT', from: '11' },
+  { name: 'Road Bike', from: '20' },
+  { name: 'City E-Bike', from: '30' },
+];
+---
+
+<section id="alquiler" class="relative scroll-mt-20 overflow-hidden py-14 sm:py-24 lg:py-32 pb-24 sm:pb-32 lg:pb-40">
+  <div class="section-shell grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+
+    <!-- Image -->
+    <div class="relative order-2 lg:order-1" data-reveal>
+      <div class="relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-cream/12 bg-night shadow-lift">
+        <Image
+          data-parallax
+          data-parallax-strength="-60"
+          data-parallax-scale="1.08"
+          src={rentalImage}
+          alt="Personas alquilando bicicletas para descubrir Miami Platja y la Costa Daurada"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="low"
+          widths={[480, 768, 1080]}
+          sizes="(min-width: 1024px) 48vw, calc(100vw - 2rem)"
+          class="h-full w-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-carbon/72 via-transparent to-transparent" aria-hidden="true"></div>
+      </div>
+      <!-- Decorative circle -->
+      <div class="absolute -left-4 top-8 hidden h-40 w-20 rounded-full border border-sand/18 sm:block" aria-hidden="true"></div>
+    </div>
+
+    <!-- Copy -->
+    <div class="order-1 lg:order-2">
+      <div data-reveal>
+        <SectionTitle
+          title="Alquila una bici y descubre Miami Platja"
+          text="Explora la Costa Daurada, sus caminos, playas y rincones cercanos con una bicicleta preparada para disfrutar desde el primer minuto."
+        />
+      </div>
+
+      <div class="mt-7 grid gap-3 sm:grid-cols-2 sm:mt-9">
+        {RENTAL_ITEMS.map((item) => (
+          <div
+            class="flex min-h-20 items-center gap-4 rounded-[1.25rem] border border-cream/10 bg-cream/[0.052] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-sand/36 hover:bg-sand/10"
+          >
+            <span class="grid size-11 shrink-0 place-items-center rounded-full bg-sand/12 text-sand">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d={iconPaths[item.icon] ?? iconPaths.Clock}/>
+              </svg>
+            </span>
+            <span class="text-sm font-semibold text-cream/88">{item.label}</span>
+          </div>
+        ))}
+      </div>
+
+      <!-- Avance de tarifas: pequeño rectángulo de precios -->
+      <div
+        data-reveal
+        class="mt-7 rounded-2xl border border-sand/20 bg-sand/[0.06] p-5"
+      >
+        <div class="flex items-center justify-between gap-3 border-b border-sand/12 pb-3">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-sand">Tarifas de alquiler</p>
+          <a
+            href="/alquiler-bicicletas-miami-platja/"
+            class="inline-flex items-center gap-1 text-xs font-semibold text-sand/80 transition-colors duration-300 hover:text-sand"
+          >
+            Ver todas
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+        <dl class="mt-3 flex flex-col gap-2.5">
+          {priceTeaser.map((p) => (
+            <div class="flex items-baseline justify-between gap-3">
+              <dt class="text-sm font-medium text-cream/85">{p.name}</dt>
+              <dd class="shrink-0 text-sm text-cream">
+                <span class="text-xs font-normal text-mist/50">desde </span>
+                <span class="font-semibold">{p.from}</span><span class="text-xs text-mist/55"> € / día</span>
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p class="mt-3.5 text-[11px] leading-5 text-mist/50">
+          Precio por día según duración del alquiler · depósito reembolsable.
+        </p>
+      </div>
+
+      <a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Consultar disponibilidad de alquiler por WhatsApp"
+        data-reveal
+        class="mt-8 inline-flex min-h-12 items-center gap-2.5 rounded-full border border-sand/30 bg-sand/10 px-7 text-sm font-semibold text-cream transition-all duration-300 hover:-translate-y-0.5 hover:border-sand/60 hover:bg-sand/18"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-sand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><path d="M16.2 7.8 11 13 7.8 9.8"/><line x1="12" x2="12" y1="8" y2="16"/><line x1="8" x2="16" y1="12" y2="12"/>
+        </svg>
+        Consultar disponibilidad
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Premium organic wave: dark → cream (RoutesSection) -->
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10 leading-[0]" aria-hidden="true">
+    <svg viewBox="0 0 1440 96" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(60px, 7.5vw, 96px);">
+      <!-- Back wave: semi-transparent cream hint -->
+      <path d="M0,96 C180,52 360,82 540,62 C720,42 900,78 1080,58 C1260,38 1380,70 1440,62 L1440,96 Z" fill="rgba(245,240,230,0.2)"/>
+      <!-- Main cream wave -->
+      <path d="M0,96 C240,54 480,80 720,58 C960,36 1200,72 1440,52 L1440,96 Z" fill="#F5F0E6"/>
+    </svg>
+  </div>
+</section>

@@ -1,0 +1,57 @@
+---
+---
+
+<section class="relative overflow-hidden py-14 sm:py-20 lg:py-28 pb-20 sm:pb-28 lg:pb-36">
+  <div class="section-shell grid gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
+
+    <div data-reveal>
+      <h2 class="text-balance text-3xl font-semibold leading-[1.08] text-cream sm:text-4xl lg:text-5xl">
+        Un espacio para quienes entienden la bicicleta como algo más que transporte.
+      </h2>
+      <p class="mt-5 max-w-3xl text-base leading-7 text-mist/78 sm:text-lg sm:leading-8">
+        En EOLO combinamos venta, mantenimiento y comunidad ciclista en un mismo lugar.
+        Te asesoramos, ajustamos tu bici y te ayudamos a moverte mejor por Miami Platja.
+      </p>
+    </div>
+
+    <div class="mt-8 grid gap-3 sm:mt-0 sm:grid-cols-2 lg:grid-cols-1">
+      {[
+        { label: 'Venta especializada', icon: 'bike' },
+        { label: 'Taller de confianza', icon: 'wrench' },
+        { label: 'Alquiler local', icon: 'handshake' },
+      ].map((item) => (
+        <div
+          class="flex items-center gap-4 rounded-[1.4rem] border border-cream/10 bg-cream/[0.055] p-5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-wind/30 hover:bg-wind/10"
+        >
+          <span class="grid size-12 place-items-center rounded-full bg-cream/9 text-wind">
+            {item.icon === 'bike' && (
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/>
+              </svg>
+            )}
+            {item.icon === 'wrench' && (
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+              </svg>
+            )}
+            {item.icon === 'handshake' && (
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/>
+              </svg>
+            )}
+          </span>
+          <span class="font-semibold text-cream">{item.label}</span>
+        </div>
+      ))}
+    </div>
+
+  </div>
+
+  <!-- Wind-accent wave: Presentation → Editorial -->
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10 leading-[0]" aria-hidden="true">
+    <svg viewBox="0 0 1440 44" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block w-full" style="height: clamp(22px, 3vw, 44px);">
+      <path d="M0,44 C240,14 480,40 720,18 C960,-4 1200,34 1440,12 L1440,44 Z" fill="rgba(127,214,255,0.05)"/>
+      <path d="M0,36 C200,46 400,26 600,38 C800,50 1000,24 1200,36 C1300,42 1380,30 1440,32" fill="none" stroke="rgba(127,214,255,0.07)" stroke-width="0.8"/>
+    </svg>
+  </div>
+</section>

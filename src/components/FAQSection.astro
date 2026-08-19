@@ -1,0 +1,230 @@
+---
+import SectionTitle from './SectionTitle.astro';
+import { WHATSAPP_URL } from '@/lib/constants';
+
+const faqs = [
+  {
+    q: '¿Necesito reservar cita para el taller?',
+    a: 'No es obligatorio, pero lo recomendamos si quieres asegurarte hora. Puedes escribirnos por WhatsApp y te confirmamos disponibilidad en minutos. Para reparaciones rápidas como cambio de cámara o ajuste de frenos, solemos atenderte en el momento.',
+    tag: 'Taller',
+  },
+  {
+    q: '¿Qué tipos de bicicletas reparáis?',
+    a: 'Trabajamos con todo tipo: urbanas, de montaña, de carretera, eléctricas y plegables. Tanto si es tu bici de día a día como la que guardas para las vacaciones, la revisamos y ponemos a punto.',
+    tag: 'Taller',
+  },
+  {
+    q: '¿Cuánto dura el alquiler mínimo?',
+    a: 'El mínimo es de un día. También podéis alquilar por varios días seguidos. Cuanto más tiempo, mejor precio. Consultadnos y os proponemos la opción que más os convenga.',
+    tag: 'Alquiler',
+  },
+  {
+    q: '¿Tenéis casco y complementos disponibles?',
+    a: 'Sí. En la tienda tenéis acceso a casco y diferentes complementos como candados, luces y bolsas de manillar. Si venís en familia, también disponemos de sillas y remolques para los más pequeños.',
+    tag: 'Alquiler',
+  },
+  {
+    q: '¿Puedo traer mi propia bici si soy de fuera?',
+    a: 'Claro. Muchos clientes vienen de vacaciones con su bici y nos la traen para una revisión o reparación. Nos adaptamos a vuestros tiempos para que podáis salir a rodar cuanto antes.',
+    tag: 'Taller',
+  },
+  {
+    q: '¿Tenéis rutas recomendadas por la zona?',
+    a: 'Sí, y nos encanta compartirlas. Desde salidas tranquilas por la costa hasta itinerarios más largos hacia Hospitalet de l\'Infant o l\'Ametlla. Preguntadnos en tienda y os orientamos según vuestro nivel.',
+    tag: 'Rutas',
+  },
+];
+
+const tagColors: Record<string, string> = {
+  Taller: 'text-wind border-wind/25 bg-wind/8',
+  Alquiler: 'text-turquoise border-turquoise/25 bg-turquoise/8',
+  Venta: 'text-sand border-sand/25 bg-sand/8',
+  Rutas: 'text-olive border-olive/25 bg-olive/8',
+};
+---
+
+<section id="faq" class="faq-section relative z-10 scroll-mt-20 overflow-visible py-20 sm:py-28 lg:py-36">
+  <div class="faq-field absolute inset-0" aria-hidden="true"></div>
+
+  <div class="absolute inset-x-0 top-0 z-[1] h-16 leading-[0] sm:h-24" aria-hidden="true">
+    <svg viewBox="0 0 1440 96" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block h-full w-full">
+      <path d="M0 0H1440V36C1276 68 1126 18 940 44C744 72 640 100 472 64C300 28 150 38 0 70V0Z" fill="#05070A" />
+    </svg>
+  </div>
+
+  <div class="absolute inset-x-0 bottom-[-6rem] z-[2] h-32 leading-[0]" aria-hidden="true">
+    <svg viewBox="0 0 1440 128" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="block h-full w-full">
+      <path d="M0 0H1440V58C1290 104 1166 18 966 62C766 106 644 28 494 66C306 114 152 24 0 82Z" fill="#05070A" />
+    </svg>
+  </div>
+
+  <div class="section-shell z-10">
+    <!-- Header -->
+    <div class="flex flex-col items-start gap-4 lg:flex-row lg:items-end lg:justify-between" data-section-title>
+      <SectionTitle
+        title="Preguntas frecuentes."
+        text="Lo que más nos preguntan, resuelto de forma directa."
+      />
+      <a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Hacer una pregunta por WhatsApp"
+        data-reveal
+        class="shrink-0 inline-flex min-h-11 items-center gap-2.5 rounded-full border border-cream/14 bg-cream/[0.055] px-6 text-sm font-medium text-cream/80 transition-all duration-300 hover:border-wind/40 hover:text-cream"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-wind" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>
+        </svg>
+        ¿Otra pregunta? Escríbenos
+      </a>
+    </div>
+
+    <!-- FAQ list -->
+    <div class="mt-14 grid gap-3 sm:gap-4" data-stagger>
+      {faqs.map((faq, i) => (
+        <div
+          data-stagger-item
+          class="faq-item group relative overflow-hidden rounded-lg border border-cream/[0.07] bg-cream/[0.035] transition-all duration-300 hover:border-wind/18 hover:bg-cream/[0.052]"
+        >
+          <button
+            class="faq-trigger flex w-full items-start gap-4 px-4 py-5 text-left focus:outline-none focus-visible:outline-none sm:gap-5 sm:px-5 sm:py-6"
+            aria-expanded="false"
+            aria-controls={`faq-panel-${i}`}
+            id={`faq-btn-${i}`}
+          >
+            <!-- Number -->
+            <span class="faq-num mt-0.5 shrink-0 font-mono text-xs text-mist/30 transition-colors duration-300 group-[.is-open]:text-wind/60">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+
+            <!-- Question + tag -->
+            <span class="flex-1">
+              <span class="flex flex-wrap items-center gap-3">
+                <span class="text-base font-semibold leading-snug text-cream/90 transition-colors duration-300 group-[.is-open]:text-cream sm:text-lg">
+                  {faq.q}
+                </span>
+                <span class:list={[
+                  'hidden rounded-full border px-2.5 py-0.5 text-[0.7rem] font-semibold uppercase tracking-wider sm:inline-block',
+                  tagColors[faq.tag] ?? 'text-mist/50 border-mist/20 bg-mist/5',
+                ]}>
+                  {faq.tag}
+                </span>
+              </span>
+            </span>
+
+            <!-- Icon -->
+            <span class="faq-icon mt-1 grid size-7 shrink-0 place-items-center rounded-full border border-cream/10 bg-cream/[0.05] transition-all duration-300 group-[.is-open]:border-wind/30 group-[.is-open]:bg-wind/10 group-[.is-open]:text-wind" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" class="faq-chevron size-3.5 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </span>
+          </button>
+
+          <!-- Answer panel -->
+          <div
+            id={`faq-panel-${i}`}
+            role="region"
+            aria-labelledby={`faq-btn-${i}`}
+            class="faq-panel overflow-hidden"
+            style="height: 0;"
+          >
+            <p class="pb-6 pl-12 pr-4 text-[0.95rem] leading-[1.78] text-mist/70 sm:pb-7 sm:pl-16 sm:pr-12">
+              {faq.a}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom note -->
+    <p class="mt-12 text-center text-sm text-mist/40" data-reveal>
+      ¿No encuentras lo que buscas? · <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" class="text-mist/60 underline underline-offset-4 transition-colors hover:text-cream">Pregúntanos directamente</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    background:
+      linear-gradient(180deg, rgba(8, 19, 29, 0.08), rgba(8, 19, 29, 0.34) 36%, rgba(5, 7, 10, 0.22) 100%),
+      #05070a;
+  }
+
+  .faq-field {
+    background:
+      linear-gradient(115deg, transparent 0%, rgba(127, 214, 255, 0.055) 24%, transparent 48%),
+      linear-gradient(245deg, transparent 10%, rgba(0, 201, 177, 0.045) 42%, transparent 70%);
+    opacity: 0.72;
+  }
+
+  .faq-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(127, 214, 255, 0.12), transparent 28%, transparent 72%, rgba(0, 201, 177, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .faq-item.is-open {
+    border-color: rgba(127, 214, 255, 0.24);
+    background: rgba(245, 240, 230, 0.055);
+  }
+
+  .faq-item.is-open::before {
+    opacity: 1;
+  }
+
+  .faq-trigger:focus-visible .faq-icon {
+    box-shadow: 0 0 0 3px rgba(127, 214, 255, 0.24);
+  }
+
+  .faq-chevron {
+    transform-origin: center;
+  }
+  .faq-item.is-open .faq-chevron {
+    transform: rotate(180deg);
+  }
+  .faq-panel {
+    transition: height 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style>
+
+<script>
+  function initFAQ() {
+    const items = document.querySelectorAll<HTMLElement>('.faq-item');
+
+    items.forEach((item) => {
+      const trigger = item.querySelector<HTMLButtonElement>('.faq-trigger');
+      const panel = item.querySelector<HTMLElement>('.faq-panel');
+      if (!trigger || !panel) return;
+
+      trigger.addEventListener('click', () => {
+        const isOpen = item.classList.contains('is-open');
+
+        // Close all
+        items.forEach((other) => {
+          const otherPanel = other.querySelector<HTMLElement>('.faq-panel');
+          const otherTrigger = other.querySelector<HTMLButtonElement>('.faq-trigger');
+          if (otherPanel && otherTrigger) {
+            other.classList.remove('is-open');
+            otherTrigger.setAttribute('aria-expanded', 'false');
+            otherPanel.style.height = '0';
+          }
+        });
+
+        // Open clicked if it was closed
+        if (!isOpen) {
+          item.classList.add('is-open');
+          trigger.setAttribute('aria-expanded', 'true');
+          panel.style.height = panel.scrollHeight + 'px';
+        }
+      });
+    });
+  }
+
+  initFAQ();
+  document.addEventListener('astro:after-swap', initFAQ);
+</script>
