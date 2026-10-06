@@ -15,6 +15,15 @@ Este archivo es obligatorio. Cada IA que modifique el proyecto debe anadir una n
 
 ## Historial conocido
 
+### 2026-10-06 - Portfolio presentation
+
+- Objetivo: aclarar el estado publico y la autoria en el README.
+- Origen del contexto: auditoria del repositorio y comprobacion de la web publica.
+- Archivos tocados: `README.md`, `docs/AI_CHANGELOG.md`.
+- Cambios realizados: se anadio el estado Production y el nombre completo del autor.
+- Validacion: enlaces del README revisados y build de Astro comprobado.
+- Riesgos o pendientes: ninguno en el codigo de la web.
+
 ### 2026-08-19 - Preparacion del repositorio publico de GitHub
 
 - Objetivo: preparar el proyecto completo para publicarlo como repositorio de portfolio, con documentacion principal profesional en ingles y sin incluir secretos ni artefactos locales o de despliegue.

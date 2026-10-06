@@ -170,9 +170,13 @@ Before deployment:
 3. Confirm that production business details and URLs are correct.
 4. Upload the contents of `dist/`, not the source repository itself.
 
+## Status
+
+**Production.** The public website is available at [eolobikes.com](https://eolobikes.com).
+
 ## Author
 
-Designed and developed by **Edgar** as a complete front-end, performance, responsive-design, and local-SEO project for EOLO Bikes.
+Designed and developed by **Edgar Pedret Girones** · [GitHub](https://github.com/EDGAR0407267).
 
 This repository showcases my work across visual direction, information architecture, Astro component development, responsive implementation, performance optimization, structured data, and automated quality assurance.
 
